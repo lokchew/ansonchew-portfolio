@@ -1,0 +1,632 @@
+/* To avoid the font not showing in some browsers https://stackoverflow.com/questions/36660893/css-open-sans-font */
+/* With the proper font weight https://stackoverflow.com/questions/45114158/googles-open-sans-font-weight */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+
+html,
+body {
+	width: 100vw;
+	margin: 0;
+	padding: 0;
+
+	background-color: #252525;
+
+	color: #ffffff;
+	font-family: 'Open Sans', sans-serif; /* Creates friendly vibe */
+	font-style: normal;
+
+	overflow-x: hidden;
+}
+
+h2 {
+	position: relative;
+	font-family: 'Fjalla One';
+	font-style: normal;
+	font-size: 40px;
+	font-weight: 400;
+	z-index: 3;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.centerTxt {
+	margin: 0;
+	padding: 12.5vh 0 5vh;
+}
+
+.centerTxt>p {
+	width: 70%;
+	margin: auto;
+	padding: 0;
+	text-align: center;
+}
+
+.section-bg {
+	position: absolute;
+	height: 100%;
+	left: 0;
+	top: 0;
+
+	background-size: cover;
+	width: 100%;
+}
+
+/* End of default properties */
+
+
+
+
+
+
+/* Below navigation bar styling was copied from my previous DECO1016 task and adjusted to fit into the context of this website */
+#navbar {
+    width: 45%;
+    height: 64px;
+    position: fixed;
+    /* Fix it to the top of the screen */
+    background-color: #1E1E1E;
+	border: #EAEAEA 1px solid;
+    z-index: 100;
+    /* Avoid being covered by other elements */
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+    padding: 0 1.5rem;
+}
+
+.navbar-container > a {
+	padding-left: 30px;
+    height: 64px;
+}
+
+.navbar-container img#logo {
+    height: 64px;
+}
+
+#navbar-menu {
+	width: 70%;
+}
+
+
+#navbar-menu ul {
+    list-style-type: none;
+    display: flex;
+	justify-content: space-between;
+
+    margin: 0;
+    padding: 0 0.8em;
+    text-align: center;
+    overflow: hidden;
+}
+
+#navbar-menu>ul>li {
+    display: inline;
+    line-height: 64px;
+    padding: 0 15px;
+    width: 100%;
+}
+
+#navbar-menu>ul>li>a {
+    position: relative;
+    display: block;
+    color: #EDEDED;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+	text-transform: uppercase;
+}
+
+/* Show an orange line under the current section to notify users which section they are at */
+#current-section::after {
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 100%;
+    left: 0;
+    bottom: 10px;
+    background-color: #EDEDED;
+}
+
+#navbar-menu>ul>li>a:hover {
+    color: #EDEDED;
+}
+
+#navbar-menu>ul>li>a:hover::after {
+    position: absolute;
+    content: "";
+    height: 5px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background-color: #EDEDED;
+}
+
+#navbar-toggle {
+    display: none;
+    z-index: 100;
+}
+
+/* Responsive nav bar learnt from DECO1016 unit */
+@media screen and (max-width: 800px) {
+    #navbar-menu {
+        position: fixed;
+        width: 100%;
+        top: 64px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: none;
+    }
+
+    #navbar-menu ul {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        left: 0;
+        right: 0;
+        width: 100%;
+        padding: 0.4em 0.8em 0;
+        background-color: #1C1C1C;
+    }
+
+    #navbar-menu>ul>li {
+        line-height: 64px;
+        width: 80%;
+    }
+
+    #navbar-menu>ul>li>a:hover {
+        border-bottom: 0;
+    }
+
+    .navbar-item>.hori-line {
+        display: block;
+        width: 100%;
+        height: 0.5px;
+        background-color: #EDEDED;
+    }
+
+    #navbar-menu>ul>li>a:hover::after {
+        height: 3px;
+        width: 100%;
+    }
+
+    #current-section::after {
+        height: 3px;
+        width: 100%;
+    }
+
+    #navbar-toggle.active+#navbar-menu {
+        background-color: #1C1C1C;
+        display: flex;
+    }
+
+    /* NAVBAR TOGGLE BUTTON */
+    /* Styles for the hamburger style menu button */
+    #navbar-toggle {
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    /* Reusable style for each menu bar */
+    .icon-bar {
+        display: block;
+        width: 25px;
+        height: 4px;
+        margin: 2px;
+        background-color: #454545;
+    }
+
+    /* Set the colour of the menu bars when hovered */
+    #navbar-toggle:hover .icon-bar {
+        background-color: #787878;
+    }
+
+    /* Set the icon bars for when the menu is active i.e. when the cross to close is showing */
+    #navbar-toggle.active .icon-bar:first-child,
+    #navbar-toggle.active .icon-bar:last-child {
+        position: absolute;
+        margin: 0;
+        width: 30px;
+    }
+
+    /* Rotate the top menu bar */
+    #navbar-toggle.active .icon-bar:first-child {
+        transform: rotate(45deg);
+    }
+
+    /* Hide the middle menu bar */
+    #navbar-toggle.active .icon-bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    /* Rotate the bottom menu bar */
+    #navbar-toggle.active .icon-bar:last-child {
+        transform: rotate(-45deg);
+    }
+}
+
+/* End of navbar */
+
+
+
+
+
+#home-section {
+	position: relative;
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+}
+
+#landing {
+	width: 45%;
+
+	position: absolute;
+	left: 10%;
+	top: 50%;
+	transform: translate(0, -50%);
+
+	z-index: 3;
+}
+
+#landing > h1 {
+	font-size: 60px;
+	font-weight: 400;
+	margin: 0 0 8px;
+	color: #8e8e8e;
+}
+
+#landing > h1 > span {
+	font-size: 96px;
+	font-weight: 600;
+	color: #ffffff;
+}
+
+#my-roles {
+	display: flex;
+	gap: 30px;
+	margin-bottom: 50px;
+}
+
+#my-roles > span {
+	font-size: 14px;
+	padding: 0.75em 2em;
+	border: #ffffff 1px solid;
+	border-radius: 30px;
+}
+
+#landing > p {
+	font-size: 16px;
+	line-height: 2em;
+	color: #8e8e8e;
+}
+
+
+
+
+
+
+.main-content {
+	position: relative;
+	width: 1080px;
+	margin: auto;
+	z-index: 5;
+}
+
+#profile {
+	padding: 64px 0;
+	display: flex;
+	gap: 76px;
+}
+
+#profile > div {
+	display: flex;
+	flex-direction: column;
+}
+
+#profile > div > img {
+	width: 257.5px;
+	padding-bottom: 30px;
+}
+
+#profile > div > a {
+	color: #ffffff;
+	text-align: center;
+	font-size: 14px;
+	text-decoration: none;
+
+	padding: 1em;
+	border: #ffffff 1px solid;
+	border-radius: 10px;
+}
+
+#profile > p {
+	margin: 0;
+	line-height: 1.8em;
+	color: #b3b3b3;
+}
+
+#profile > p > span {
+	color: #ffffff;
+	font-size: 32px;
+	font-weight: 500;
+}
+
+
+
+
+#portfolio-section {
+	padding: 64px 0;
+}
+
+#projects-showcase {
+	display: flex;
+	flex-direction: column;
+	gap: 64px;
+}
+
+.project {
+	display: block;
+	position: relative;
+	/* width: min-content; */
+	/* margin: auto; */
+}
+
+.project-thumbnail-container {
+	height: 540px;
+	width: 100%;
+	overflow: hidden;
+}
+
+.project-thumbnail {
+	width:100%;
+	height:100%;
+	background-size: cover;
+	background-position: center;
+	transition: transform 7s;
+}
+
+.project:hover .project-thumbnail{
+	transform:scale(1.2);
+}
+
+.project-details {
+	position: absolute;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.9);
+}
+
+.project-details > div {
+	padding: 10px 3% 30px;
+}
+
+.project-title {
+	font-size: 32px;
+	font-weight: 600;
+	margin: 10px 0;
+}
+
+.project-intro {
+	font-size: 16px;
+	margin: 10px 0;
+	line-height: 2em;
+	color: #cecece;
+}
+
+.project-btns {
+	padding-top: 10px;
+	display: flex;
+	gap: 30px;
+}
+
+.project-btns > a {
+	font-size: 12px;
+	padding: 0.75em 3em;
+	border-radius: 100px;
+}
+
+.view-research-btn {
+	background-color: #0075FF;
+}
+
+.view-product-btn {
+	border: #ffffff 1px solid;
+}
+
+
+
+
+#contact-section {
+	position: relative;
+	height: 85vh;
+	margin: 0;
+	padding: 0;
+}
+
+#contact-section > div > h2 {
+	margin: 0;
+	padding-top: 64px;
+	text-align: center;
+}
+
+#contact-section > div > p {
+	margin: 20px 0 0;
+	text-align: center;
+}
+
+fieldset {
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-block-start: 0;
+    padding-block-end: 0;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    border: none;
+    min-inline-size: min-content;
+}
+
+/* Removing the default icon that is disrupting the design https://stackoverflow.com/questions/20937475/remove-datalist-dropdown-arrow-in-chrome */
+[list]::-webkit-calendar-picker-indicator {
+    display: none !important;
+}
+
+/* A container of the input form */
+#input-form-container {
+    position: relative;
+    width: 80%;
+	margin: 48px auto 0;
+
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px;
+}
+
+/* The form that user has to filled out to add the movie to their watched history */
+#input-form {
+    width: 85%;
+    height: 470px;
+    padding-top: 30px;
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+}
+
+#contact-details {
+    display: grid;
+    grid-template-columns: 45% 45%;
+	justify-content: space-between;
+}
+
+.contact-detail-contaienr > label {
+    position: relative;
+    top: -5px;
+}
+
+#contact-details > div > input {
+    height: 2.5em;
+    width: 100%;
+
+    font-size: 16px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#contact-message {
+	width: 100%;
+	height: 250px;
+	resize: none;
+
+	padding: 10px;
+	box-sizing: border-box;
+	
+	font-size: 16px;
+    color: #202020;
+    font-family: 'Roboto', sans-serif;
+}
+
+input[name="submit_btn"] {
+	position: relative;
+    width: 180px;
+    height: 40px;
+	margin: 10px auto;
+
+	font-size: 16px;
+    text-transform: uppercase;
+    transition: .5s;
+
+	background: transparent;
+    color: #ffffff;
+    border: #ffffff 1.5px solid;
+	border-radius: 5px;
+}
+
+
+
+
+
+
+
+footer {
+	background: #2A2A2A;
+	color: #ffffff;
+}
+
+#footer-contact {
+	width: 50%;
+	margin: auto;
+	display: flex;
+	justify-content: space-between;
+
+	padding-top: 30px;
+}
+
+#footer-contact > div {
+	display: flex;
+	gap: 50px;
+}
+
+#footer-contact > div > .contact-header {
+	text-transform: uppercase;
+}
+
+footer > span {
+	display: block;
+	width: 50%;
+	height: 0.5px;
+
+	margin: 30px auto 20px;
+	background-color: #EDEDED;
+}
+
+#footer-connect {
+	width: 65%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	text-align: center;
+	padding-bottom: 40px;
+}
+
+#connect-platforms {
+	height: 48px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 10px 0 15px;
+
+	gap: 30px
+}
+
+#connect-platforms > a {
+	display: block;
+	height: 40px;
+	width: 40px;
+
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	transition: height 0.2s ease-out, width 0.2s ease-out ;
+}
+
+#connect-platforms > a:hover {
+	height: 48px;
+	width: 48px;
+}
