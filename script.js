@@ -1,35 +1,85 @@
 
 // Functions to call when the page finishes loading
 document.addEventListener('DOMContentLoaded', () => {
-    getProductJson();
+    getProjectJson();
     createFooter();
 });
 
-async function getProductJson() {
-    const response = await fetch('json/products.json');
+var allProjects = [];
+async function getProjectJson() {
+    const response = await fetch('file/projects.json');
     const lst = await response.json(); 
 
-    var productsContainer = document.querySelectorAll(".showcase-products");
-    productsContainer.forEach(element => {
-        var type = element.parentElement.getAttribute("product");
-        var formattedType = type.replace("-", " ");
-        var showcaseNum = lst[formattedType].length;
-        if (productsContainer.length > 1 && lst[formattedType].length > 4) showcaseNum = 4;
-        // console.log(showcaseNum)
+    const keysValue = Object.keys(lst);
+    keysValue.forEach(key => {
+        allProjects.push(lst[key]);
+    });
+    // console.log(allProjects);
 
-        var images = "";
-        for (var i = 0; i < showcaseNum; i++) {
-            var product = lst[formattedType][i];
-            images += `
-            <div class="showcase-product">
-                <div class="showcase-product-img"><div style="background-image: url('image/product/${type}/${product.img[0]}');">
-                </div></div>
-                <p>${product.name}</p>
-                <button>View Details</button>
+    setUpPageNum();
+}
+
+let pageNum = 1;
+const showcasetNum = 2;
+const projectsContainer = document.getElementById("projects-showcase");
+function displayProject() {    
+    // How many projects to show in each page
+    projectsContainer.innerHTML = "";
+    for (var i = 0; i < showcasetNum; i++) {
+        var index = (pageNum - 1) * showcasetNum + i;
+        if (index < allProjects.length) {
+            let projectContainer = document.createElement("div");
+            projectContainer.setAttribute("class", "project");
+            projectContainer.innerHTML = `
+            <div class="project-thumbnail-container"><div class="project-thumbnail" style="background-image: url('${allProjects[index].thumbnail}')"></div></div>
+            <div class="project-details">
+                <div>
+                    <h3 class="project-title">${allProjects[index].title}</h3>
+                    <p class="project-intro">${allProjects[index].intro}</p>
+                    <div class="project-btns">
+                    </div>
+                </div>
             </div>
             `
+            var projectBtns = projectContainer.querySelector(".project-btns");
+            var research = allProjects[index].research;
+            var product = allProjects[index].product;
+
+            if (research != "") {
+                projectBtns.innerHTML += `<a class="uppercase view-research-btn" href="${research}" target="_blank">View Research</a>`
+            }
+            if (product != "") {
+                projectBtns.innerHTML += `<a class="uppercase view-product-btn" href="${product}" target="_blank">View Product</a>`
+            }
+            projectsContainer.appendChild(projectContainer);
         }
-        element.innerHTML = images;
+    }
+}
+
+const allPageNum = document.querySelectorAll(".page-num");
+function setUpPageNum() {
+    allPageNum.forEach(element => {
+        element.addEventListener("click", ()=> {
+            pageNum = Number(element.innerHTML);
+            setPageNum();
+            displayProject();
+        });
+    });
+
+    displayProject();
+}
+
+function changePageNum(direction) {
+    if ((pageNum == 1 && direction == -1) || (pageNum == Math.round(allProjects.length / 2) && direction == 1)) return;
+    pageNum += direction;
+    setPageNum();
+    displayProject();
+}
+
+function setPageNum() {
+    allPageNum.forEach(page => {
+        page.removeAttribute("id");
+        if (page.innerHTML == pageNum) page.setAttribute("id", "current-page");
     });
 }
 

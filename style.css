@@ -61,7 +61,7 @@ h2 {
 
 /* Below navigation bar styling was copied from my previous DECO1016 task and adjusted to fit into the context of this website */
 #navbar {
-    width: 45%;
+    width: 55%;
     height: 64px;
     position: fixed;
     /* Fix it to the top of the screen */
@@ -80,7 +80,7 @@ h2 {
 }
 
 .navbar-container > a {
-	padding-left: 30px;
+	padding-left: 32px;
     height: 64px;
 }
 
@@ -122,27 +122,13 @@ h2 {
 }
 
 /* Show an orange line under the current section to notify users which section they are at */
-#current-section::after {
+#current-section::after , #navbar-menu>ul>li>a:hover::after{
     position: absolute;
     content: "";
     height: 3px;
     width: 100%;
     left: 0;
     bottom: 10px;
-    background-color: #EDEDED;
-}
-
-#navbar-menu>ul>li>a:hover {
-    color: #EDEDED;
-}
-
-#navbar-menu>ul>li>a:hover::after {
-    position: absolute;
-    content: "";
-    height: 5px;
-    width: 100%;
-    left: 0;
-    bottom: 0;
     background-color: #EDEDED;
 }
 
@@ -239,7 +225,7 @@ h2 {
     #navbar-toggle.active .icon-bar:last-child {
         position: absolute;
         margin: 0;
-        width: 30px;
+        width: 32px;
     }
 
     /* Rotate the top menu bar */
@@ -272,7 +258,7 @@ h2 {
 }
 
 #landing {
-	width: 45%;
+	width: 700px;
 
 	position: absolute;
 	left: 10%;
@@ -285,7 +271,7 @@ h2 {
 #landing > h1 {
 	font-size: 60px;
 	font-weight: 400;
-	margin: 0 0 8px;
+	margin: 0 0 24px;
 	color: #8e8e8e;
 }
 
@@ -297,15 +283,15 @@ h2 {
 
 #my-roles {
 	display: flex;
-	gap: 30px;
+	gap: 32px;
 	margin-bottom: 50px;
 }
 
 #my-roles > span {
 	font-size: 14px;
 	padding: 0.75em 2em;
-	border: #ffffff 1px solid;
-	border-radius: 30px;
+	border: #ffffff 1.5px solid;
+	border-radius: 32px;
 }
 
 #landing > p {
@@ -339,7 +325,7 @@ h2 {
 
 #profile > div > img {
 	width: 257.5px;
-	padding-bottom: 30px;
+	padding-bottom: 32px;
 }
 
 #profile > div > a {
@@ -349,7 +335,7 @@ h2 {
 	text-decoration: none;
 
 	padding: 1em;
-	border: #ffffff 1px solid;
+	border: #ffffff 1.5px solid;
 	border-radius: 10px;
 }
 
@@ -410,7 +396,7 @@ h2 {
 }
 
 .project-details > div {
-	padding: 10px 3% 30px;
+	padding: 10px 3% 32px;
 }
 
 .project-title {
@@ -429,13 +415,25 @@ h2 {
 .project-btns {
 	padding-top: 10px;
 	display: flex;
-	gap: 30px;
+	gap: 32px;
 }
 
 .project-btns > a {
 	font-size: 12px;
-	padding: 0.75em 3em;
+    width: 180px;
+    height: 40px;
+	
 	border-radius: 100px;
+	text-decoration: none;
+	color: #ffffff;
+
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .view-research-btn {
@@ -444,6 +442,36 @@ h2 {
 
 .view-product-btn {
 	border: #ffffff 1px solid;
+}
+
+#projects-page-num {
+	width: 20%;
+	margin: auto;
+	padding-top: 48px;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#projects-previous-page, #projects-next-page {
+	width: 24px;
+	height: 24px;
+	background-color: #00408a;
+	border-radius: 32px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.page-num {
+	margin: 0;
+	font-weight: 600;
+}
+
+#current-page {
+	color: #0075FF;
 }
 
 
@@ -490,6 +518,9 @@ fieldset {
 	margin: 48px auto 0;
 
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
     border-radius: 10px;
 }
@@ -498,7 +529,7 @@ fieldset {
 #input-form {
     width: 85%;
     height: 470px;
-    padding-top: 30px;
+    padding-top: 32px;
     margin: auto;
 
     display: flex;
@@ -524,6 +555,11 @@ fieldset {
     font-size: 16px;
     padding: 10px;
     box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+	
+	border: none;
+	border-radius: 3px;
 }
 
 #contact-message {
@@ -531,8 +567,13 @@ fieldset {
 	height: 250px;
 	resize: none;
 
+	border: none;
+	border-radius: 3px;
+
 	padding: 10px;
-	box-sizing: border-box;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 	
 	font-size: 16px;
     color: #202020;
@@ -572,7 +613,7 @@ footer {
 	display: flex;
 	justify-content: space-between;
 
-	padding-top: 30px;
+	padding-top: 32px;
 }
 
 #footer-contact > div {
@@ -589,7 +630,7 @@ footer > span {
 	width: 50%;
 	height: 0.5px;
 
-	margin: 30px auto 20px;
+	margin: 32px auto 20px;
 	background-color: #EDEDED;
 }
 
@@ -612,7 +653,7 @@ footer > span {
 	align-items: center;
 	margin: 10px 0 15px;
 
-	gap: 30px
+	gap: 32px
 }
 
 #connect-platforms > a {
