@@ -1,9 +1,34 @@
-
 // Functions to call when the page finishes loading
 document.addEventListener('DOMContentLoaded', () => {
     getProjectJson();
     createFooter();
 });
+
+// Variables for jumping to different sections
+const allNavLinks = document.querySelectorAll(".navbar-link");
+const allSections = document.querySelectorAll(".main-section");
+let sectionOffset = [0, 0, 0, 0];
+let currentSection = 0;
+window.onscroll = () => {
+    // console.log(window.pageYOffset);
+
+    const totalSections = sectionOffset.length;
+    for (var i = 0; i < totalSections; i++) {
+        // Check whether the scroll position arrived a new section
+        if (window.pageYOffset >= sectionOffset[i] - (window.innerHeight / 4) && i != currentSection) {
+            // Function for the nav bar current selection underliner
+            // Change the id attribute to restyle the nav bar and current selection
+            allNavLinks[currentSection].removeAttribute("id");
+            allNavLinks[i].setAttribute("id", "current-section");
+            currentSection = i;
+        }
+    }
+};
+
+async function contentUpdate() {
+    await displayProject();
+    await sectionOffsetCheck();
+}
 
 var allProjects = [];
 async function getProjectJson() {
@@ -17,6 +42,7 @@ async function getProjectJson() {
     // console.log(allProjects);
 
     setUpPageNum();
+    contentUpdate();
 }
 
 let pageNum = 1;
@@ -56,33 +82,6 @@ function displayProject() {
     }
 }
 
-const allPageNum = document.querySelectorAll(".page-num");
-function setUpPageNum() {
-    allPageNum.forEach(element => {
-        element.addEventListener("click", ()=> {
-            pageNum = Number(element.innerHTML);
-            setPageNum();
-            displayProject();
-        });
-    });
-
-    displayProject();
-}
-
-function changePageNum(direction) {
-    if ((pageNum == 1 && direction == -1) || (pageNum == Math.round(allProjects.length / 2) && direction == 1)) return;
-    pageNum += direction;
-    setPageNum();
-    displayProject();
-}
-
-function setPageNum() {
-    allPageNum.forEach(page => {
-        page.removeAttribute("id");
-        if (page.innerHTML == pageNum) page.setAttribute("id", "current-page");
-    });
-}
-
 function createFooter() {
     var date = new Date;
     var footer = document.createElement("footer");
@@ -109,4 +108,62 @@ function createFooter() {
     </div>
     `
     document.querySelector("body").appendChild(footer);
+}
+
+
+
+
+
+
+// Sub functions
+function sectionOffsetCheck() {
+    // Check each sections' offset from the top of the website
+    for (var i = 0; i < 4; i++) {
+        sectionOffset[i] = allSections[i].offsetTop;
+        // console.log(i + ": " + allSections[i].offsetTop);
+    }
+}
+
+function setPageNum() {
+    allPageNum.forEach(page => {
+        page.removeAttribute("id");
+        if (page.innerHTML == pageNum) page.setAttribute("id", "current-page");
+    });
+}
+
+
+
+
+
+
+// Button functions
+function sectionJump(section) {
+    // Check every section offset is updated
+    sectionOffsetCheck();
+
+    // Scroll to the clicked section afterwards
+    window.scrollTo({
+        top: sectionOffset[section],
+        behavior: "smooth",
+    });
+}
+
+const allPageNum = document.querySelectorAll(".page-num");
+function setUpPageNum() {
+    allPageNum.forEach(element => {
+        element.addEventListener("click", ()=> {
+            pageNum = Number(element.innerHTML);
+            setPageNum();
+            contentUpdate();
+            sectionJump(2);
+        });
+    });
+}
+
+function changePageNum(direction) {
+    if ((pageNum == 1 && direction == -1) || (pageNum == Math.round(allProjects.length / 2) && direction == 1)) return;
+    pageNum += direction;
+    setPageNum();
+    contentUpdate();
+    sectionJump(2);
 }

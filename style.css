@@ -24,6 +24,9 @@ h2 {
 	font-size: 40px;
 	font-weight: 400;
 	z-index: 3;
+
+	margin: 0;
+    padding: 96px 0 32px;
 }
 
 .uppercase {
@@ -313,7 +316,7 @@ h2 {
 }
 
 #profile {
-	padding: 64px 0;
+	padding: 96px 0 64px;
 	display: flex;
 	gap: 76px;
 }
@@ -354,9 +357,7 @@ h2 {
 
 
 
-#portfolio-section {
-	padding: 64px 0;
-}
+
 
 #projects-showcase {
 	display: flex;
@@ -447,7 +448,7 @@ h2 {
 #projects-page-num {
 	width: 20%;
 	margin: auto;
-	padding-top: 48px;
+	padding: 48px 0;
 
 	display: flex;
 	justify-content: space-between;
@@ -486,7 +487,7 @@ h2 {
 
 #contact-section > div > h2 {
 	margin: 0;
-	padding-top: 64px;
+	padding-bottom: 0;
 	text-align: center;
 }
 
