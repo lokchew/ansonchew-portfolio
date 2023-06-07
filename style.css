@@ -87,7 +87,10 @@ h2 {
     height: 64px;
 }
 
-.navbar-container img#logo {
+#logo {
+	display: block;
+	margin: 0;
+	padding: 0;
     height: 64px;
 }
 
@@ -278,10 +281,15 @@ h2 {
 
 
 #home-section {
-	position: relative;
+	position: fixed;
 	height: 100vh;
+	width: 100vw;
 	margin: 0;
 	padding: 0;
+
+	transform: translate3d(0, 0%, 0);
+	transition: transform 0.5s ease-in;
+	z-index: 99;
 }
 
 #landing {
@@ -332,6 +340,14 @@ h2 {
 
 
 
+article {
+	width: 100%;
+	top: 0;
+
+	transform: translate3d(0, 0%, 0);
+	transition: transform 0.5s ease-in;
+}
+
 .main-content {
 	position: relative;
 	width: 1080px;
@@ -340,7 +356,7 @@ h2 {
 }
 
 #profile {
-	padding: 96px 0 64px;
+	padding: 128px 0 64px;
 	display: flex;
 	gap: 76px;
 }
@@ -504,7 +520,6 @@ h2 {
 
 #contact-section {
 	position: relative;
-	height: 85vh;
 	margin: 0;
 	padding: 0;
 }
@@ -540,7 +555,7 @@ fieldset {
 #input-form-container {
     position: relative;
     width: 80%;
-	margin: 16px auto 0;
+	margin: 32px auto 96px;
 
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -628,8 +643,12 @@ input[name="submit_btn"] {
 
 
 footer {
+	position: relative;
+	width: 100%;
 	background: #2A2A2A;
 	color: #ffffff;
+
+	z-index: 5;
 }
 
 #footer-contact {
