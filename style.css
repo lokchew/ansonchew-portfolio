@@ -76,7 +76,7 @@ h2 {
 
 .navbar-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     height: 100%;
     align-items: center;
     padding: 0 1.5rem;
@@ -95,7 +95,6 @@ h2 {
 	width: 70%;
 }
 
-
 #navbar-menu ul {
     list-style-type: none;
     display: flex;
@@ -110,29 +109,54 @@ h2 {
 #navbar-menu>ul>li {
     display: inline;
     line-height: 64px;
-    padding: 0 15px;
+    padding: 0 30px;
     width: 100%;
 }
 
 #navbar-menu>ul>li>a {
     position: relative;
     display: block;
-    color: #EDEDED;
+    color: #bcbcbc;
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
 	text-transform: uppercase;
+
+	transition: color 0.2s ease-out;
 }
 
-/* Show an orange line under the current section to notify users which section they are at */
-#current-section::after , #navbar-menu>ul>li>a:hover::after{
+#navbar-menu>ul>li>a:hover {
+    color: #ffffff;
+}
+
+#navbar-menu>ul>li>a::after {
     position: absolute;
     content: "";
     height: 3px;
-    width: 100%;
+	width: 0%;
+
     left: 0;
     bottom: 10px;
-    background-color: #EDEDED;
+
+	background: linear-gradient(90deg, #FFFFFF 0%, #3C3C3C 100%);
+	border-radius: 5px;
+
+	transition: width 0.2s ease-out;
+}
+
+#current-section::after {
+    position: absolute;
+    content: "";
+    height: 3px;
+	width: 100% !important;
+
+    left: 0;
+    bottom: 10px;
+
+	background: linear-gradient(90deg, #FFFFFF 0%, #3C3C3C 100%);
+	border-radius: 5px;
+
+	transition: width 0.2s ease-out;
 }
 
 #navbar-toggle {
@@ -492,7 +516,7 @@ h2 {
 }
 
 #contact-section > div > p {
-	margin: 20px 0 0;
+	margin: 16px 0 0;
 	text-align: center;
 }
 
@@ -516,7 +540,7 @@ fieldset {
 #input-form-container {
     position: relative;
     width: 80%;
-	margin: 48px auto 0;
+	margin: 16px auto 0;
 
     box-sizing: border-box;
     -moz-box-sizing: border-box;

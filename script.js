@@ -100,9 +100,9 @@ function createFooter() {
     <div id="footer-connect">
         <p>GET IN TOUCH</p>
         <div id="connect-platforms">
-            <a style="background-image: url('image/footer/email.png');" href=""></a>
-            <a style="background-image: url('image/footer/github.png');" href=""></a>
-            <a style="background-image: url('image/footer/linkedin.png');" href=""></a>
+            <a style="background-image: url('image/footer/email.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
+            <a style="background-image: url('image/footer/github.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
+            <a style="background-image: url('image/footer/linkedin.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
         </div>
         <p style="font-size: 12px;">© ${date.getFullYear()}, Anson Chew</p>
     </div>
