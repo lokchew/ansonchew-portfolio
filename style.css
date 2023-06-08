@@ -2,13 +2,10 @@
 /* With the proper font weight https://stackoverflow.com/questions/45114158/googles-open-sans-font-weight */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
 
-html,
-body {
+html, body {
 	width: 100vw;
 	margin: 0;
 	padding: 0;
-
-	background-color: #252525;
 
 	color: #ffffff;
 	font-family: 'Open Sans', sans-serif; /* Creates friendly vibe */
@@ -281,15 +278,10 @@ h2 {
 
 
 #home-section {
-	position: fixed;
 	height: 100vh;
 	width: 100vw;
 	margin: 0;
 	padding: 0;
-
-	transform: translate3d(0, 0%, 0);
-	transition: transform 0.5s ease-in;
-	z-index: 99;
 }
 
 #landing {
@@ -340,12 +332,22 @@ h2 {
 
 
 
-article {
+.back-slide {
 	width: 100%;
+	height: 100vh;
 	top: 0;
-
 	transform: translate3d(0, 0%, 0);
 	transition: transform 0.5s ease-in;
+
+	position: absolute;
+	background-color: #252525;
+	overflow: hidden;
+}
+
+.content-container {
+	position: relative;
+	height: 100%;
+	width: 100%;
 }
 
 .main-content {
@@ -524,13 +526,13 @@ article {
 	padding: 0;
 }
 
-#contact-section > div > h2 {
+#contact-section > div > div > h2 {
 	margin: 0;
 	padding-bottom: 0;
 	text-align: center;
 }
 
-#contact-section > div > p {
+#contact-section > div > div > p {
 	margin: 16px 0 0;
 	text-align: center;
 }

@@ -48,70 +48,77 @@
 	</header>
 
 	<main>
-		<section id="home-section" class="main-section" style="background-color: #000000;">
-			<div id="landing">
-				<h1>Hi I’m<br><span>ANSON CHEW</span></h1>
-				<div id="my-roles">
-					<span>Interaction Designer</span>
-					<span>Website Developer</span>
+		<section id="home-section" class="main-section back-slide" style="z-index: 99; background-color: #000000;">
+			<div class="content-container">
+				<div id="landing">
+					<h1>Hi I’m<br><span>ANSON CHEW</span></h1>
+					<div id="my-roles">
+						<span>Interaction Designer</span>
+						<span>Website Developer</span>
+					</div>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 				</div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+				<div class="section-bg" style="background-image: url('image/landing/bg.png'); opacity: 0.7;"></div>
 			</div>
-			<div class="section-bg" style="background-image: url('image/landing/bg.png'); opacity: 0.7;"></div>
 		</section>
 
-		<article class="back-slide" style="z-index: 3; position: fixed;">
-			<section id="about-section" class="main-section">
-				<div style="background-color: #1E1E1E;">
-					<div id="profile" class="main-content">
-						<div>
-							<img src="image/about/profile-img.png">
-							<a class="uppercase" href="file/anson_chew_resume.pdf" target="_blank">Download Resume</a>
+		<article class="back-slide" style="z-index: 98; transition: transform 0.7s ease-out;">
+			<div class="content-container">
+				<section id="about-section" class="main-section">
+					<div style="background-color: #1E1E1E;">
+						<div id="profile" class="main-content">
+							<div>
+								<img src="image/about/profile-img.png">
+								<a class="uppercase" href="file/anson_chew_resume.pdf" target="_blank">Download Resume</a>
+							</div>
+							<p>
+								<span class="uppercase">About Me</span>
+								<br><br>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+								<br><br>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+								<br><br>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+							</p>
 						</div>
-						<p>
-							<span class="uppercase">About Me</span>
-							<br><br>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-							<br><br>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-							<br><br>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-						</p>
 					</div>
-				</div>
-				<div>
+					<div>
+						<div class="main-content">
+							<h2>Specialities</h2>
+							<div>
+								<div>
+									<h4>UX / UI Design</h4>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+								</div>
+								<div>
+									<h4>Website Design</h4>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+		
+				<section id="portfolio-section" class="main-section">
 					<div class="main-content">
-						<h2>Specialities</h2>
-						<div>
-							<div>
-								<h4>UX / UI Design</h4>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-							</div>
-							<div>
-								<h4>Website Design</h4>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-							</div>
+						<h2 class="uppercase">Previous Project</h2>
+						<div id="projects-showcase">
+						</div>
+						<div id="projects-page-num">
+							<span id="projects-previous-page" onclick="changePageNum(-1)"><a><</a></span>
+							<p id="current-page" class="page-num">1</p>
+							<p class="page-num">2</p>
+							<p class="page-num">3</p>
+							<span id="projects-next-page" onclick="changePageNum(1)"><a>></a></span>
 						</div>
 					</div>
-				</div>
-			</section>
-	
-			<section id="portfolio-section" class="main-section">
-				<div class="main-content">
-					<h2 class="uppercase">Previous Project</h2>
-					<div id="projects-showcase">
-					</div>
-					<div id="projects-page-num">
-						<span id="projects-previous-page" onclick="changePageNum(-1)"><a><</a></span>
-						<p id="current-page" class="page-num">1</p>
-						<p class="page-num">2</p>
-						<p class="page-num">3</p>
-						<span id="projects-next-page" onclick="changePageNum(1)"><a>></a></span>
-					</div>
-				</div>
-			</section>
+				</section>
+			</div>
+		</article>
 
-			<section id="contact-section" class="main-section">
+
+		<section id="contact-section" class="main-section back-slide" style="z-index: 97;">
+			<div class="content-container">
 				<div class="main-content">
 					<h2 class="uppercase">Contact me</h2>
 					<p>If you’d like to chat about a project or just have question, please fill in the form below. I aim to get back within 2 days.</p>
@@ -140,8 +147,8 @@
 					</form>
 				</div>
 				<div class="section-bg" style="background-image: url('image/landing/bg.png'); opacity: 0.7;"></div>
-			</section>
-		</article>
+			</div>
+		</section>
 	</main>
 
 	<script src="script.js"></script>

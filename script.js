@@ -1,39 +1,20 @@
 // Functions to call when the page finishes loading
 document.addEventListener('DOMContentLoaded', () => {
     getProjectJson();
+    createScrollEffect();
     createFooter();
 });
 
 // Variables for jumping to different sections
 const allNavLinks = document.querySelectorAll(".navbar-link");
 const allSections = document.querySelectorAll(".main-section");
+
 const homeSection = document.getElementById("home-section");
 const articleSection = document.querySelector("article");
-let sectionOffset = [0, 0, 0, 0];
-let currentSection = 0;
-let checkHomeSection = true;
-window.addEventListener("wheel", event => {
-    if (checkHomeSection && event.deltaY > 0) {
-        homeSection.style.transform = "translate3d(0, -100%, 0)";
-        checkHomeSection = false;
-        highlightCurrentSection();
-    }
-});
-
-articleSection.addEventListener("wheel", event => {
-    if (!checkHomeSection && articleSection.style.position != "absolute" && event.deltaY > 0) {
-        displayHomeSection(false);
-    }
-
-    if (!checkHomeSection && window.pageYOffset == 0 && event.deltaY < 0) {
-        displayHomeSection(true);
-    }
-});
-
-window.onscroll = () => {
-    // console.log(window.pageYOffset);
-    highlightCurrentSection();
-};
+const contactSection = document.getElementById("contact-section");
+const allSectionGroup = [homeSection, articleSection, contactSection];
+let currentSectionGroup = 0;
+let changable = true;
 
 async function contentUpdate() {
     await displayProject();
@@ -92,6 +73,27 @@ function displayProject() {
     }
 }
 
+function createScrollEffect() {
+    allSectionGroup.forEach((element, index) => {
+        element.addEventListener("wheel", event => {
+            // At the top of the section group
+            if (index - 1 >= 0 && currentSectionGroup == index && checkReachPosition(element, true) && event.deltaY < 0 && changable) {
+                console.log("Scroll back to previous section");
+                displaySectionGroup(index, index - 1);
+            }
+
+            if (index + 1 < allSectionGroup.length && currentSectionGroup == index && checkReachPosition(element, false) && event.deltaY > 0 && changable) {
+                console.log("Scroll to next section");
+                displaySectionGroup(index, index + 1);
+            }
+        });
+
+        element.addEventListener("scroll", event => {
+            highlightCurrentSection(element);
+        })
+    });
+}
+
 function createFooter() {
     var date = new Date;
     var footer = document.createElement("footer");
@@ -110,14 +112,14 @@ function createFooter() {
     <div id="footer-connect">
         <p>GET IN TOUCH</p>
         <div id="connect-platforms">
-            <a style="background-image: url('image/footer/email.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
+            <a style="background-image: url('image/footer/email.png');" href="mailto:ansonchew.study@gmail.com" target="_blank"></a>
             <a style="background-image: url('image/footer/github.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
             <a style="background-image: url('image/footer/linkedin.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
         </div>
         <p style="font-size: 12px;">© ${date.getFullYear()}, Anson Chew</p>
     </div>
     `
-    document.querySelector("#contact-section").appendChild(footer);
+    contactSection.querySelector(".content-container").appendChild(footer);
 }
 
 
@@ -126,50 +128,83 @@ function createFooter() {
 
 
 // Sub functions
+let sectionOffset;
 function sectionOffsetCheck() {
-    // Check each sections' offset from the top of the website
-    for (var i = 0; i < 4; i++) {
-        sectionOffset[i] = allSections[i].offsetTop;
+    // Check each section's offset from the top of the website
+    sectionOffset = [];
+    for (var i = 0; i < allSections.length; i++) {
+        sectionOffset.push(allSections[i].offsetTop);
         // console.log(i + ": " + allSections[i].offsetTop);
     }
 }
 
-function highlightCurrentSection() {
-    // Check whether the scroll position arrived a new section
-    if (checkHomeSection) {
-        allNavLinks[currentSection].removeAttribute("id");
-        allNavLinks[0].setAttribute("id", "current-section");
-        currentSection = 0;
-        return;
-    }
-
-    for (var i = 0; i < sectionOffset.length; i++) {
-        if (window.pageYOffset >= sectionOffset[i] - (window.innerHeight / 4) && i != currentSection) {
-            // Function for the nav bar current selection underliner
-            // Change the id attribute to restyle the nav bar and current selection
-            allNavLinks[currentSection].removeAttribute("id");
-            allNavLinks[i].setAttribute("id", "current-section");
-            currentSection = i;
-        }
+// Check whether the section has reaches it top / bottom
+function checkReachPosition(sectionGroup, top) {
+    if (sectionGroup.scrollHeight > window.innerHeight) {
+        // console.log(sectionGroup.scrollHeight);
+        // console.log(sectionGroup.scrollTop);
+        if (top) return sectionGroup.scrollTop == 0;
+        else return Math.floor(sectionGroup.scrollTop) == Math.floor(sectionGroup.scrollHeight - window.innerHeight);
+    } else {
+        if (top) return window.pageYOffset == 0;
+        else return Math.floor(window.pageYOffset) == Math.floor(sectionGroup.clientHeight - window.innerHeight);
     }
 }
 
-function displayHomeSection(show) {
-    if (show) {
-        checkHomeSection = true;
-        homeSection.style.transform = "translate3d(0, 0, 0)";
+let highlightedSection = 0;
+function highlightCurrentSection(curSectionGroup) {
+    // Function for the nav bar current selection underliner
+    // Check whether the scroll position arrived a new section. If true, change the id attribute to restyle the nav bar and current selection
+    
+    for (var i = 0; i < sectionOffset.length; i++) {
+        // If the section is one of the section group
+        if (allSectionGroup.includes(allSections[i])) {
+            if (window.pageYOffset == 0 && allSections[i] == curSectionGroup && i != highlightedSection) {
+                highlightedSection = i;
+                allNavLinks.forEach(element => element.removeAttribute("id"));
+                allNavLinks[highlightedSection].setAttribute("id", "current-section");
+                return;
+            }
+            continue;
+        } 
 
-        // Based on the transition time of the home section
-        // To keep the current view until home section totally take up the whole page
-        setTimeout(() => {articleSection.style.position = "fixed"}, 500) ;
+        // If the section is the child of one of the section group
+        if (allSectionGroup[currentSectionGroup].contains(allSections[i])) {
+            // As currently we are using inner scroll group instead of a global one, window.pageYOffset won't work in this case
+            if (curSectionGroup.scrollTop >= sectionOffset[i] - (window.innerHeight / 4) && i != highlightedSection) {
+                // Check if the section is the last one of its section group or not
+                if (i + 1 != sectionOffset.length && !allSectionGroup.includes(allSections[i + 1])) {
+                    if (curSectionGroup.scrollTop >= sectionOffset[i + 1] - (window.innerHeight / 4)) continue;
+                } 
+                allNavLinks[highlightedSection].removeAttribute("id");
+                allNavLinks[i].setAttribute("id", "current-section");
+                highlightedSection = i;
+                return;
+            }
+        }
+        
+        // console.log(currentSectionGroup);
+        // console.log(allNavLinks[highlightedSection]);
+    }
+}
+
+function displaySectionGroup(currentSection, nextSection) {
+    changable = false;
+    if (currentSection > nextSection) {
+        // Back to previous section
+        allSectionGroup[currentSection].style.overflow = "hidden";
+        allSectionGroup[nextSection].style.transform = "translate3d(0, 0, 0)";
     } else {
-        checkHomeSection = false;
-        articleSection.style.position = "absolute";
-        homeSection.style.transform = "translate3d(0, -100%, 0)";
+        allSectionGroup[currentSection].style.overflow = "hidden";
+        allSectionGroup[currentSection].style.transform = "translate3d(0, -100%, 0)";
+        allSectionGroup[nextSection].style.transform = "translate3d(0, 0, 0)";
     }
 
-    // Highlight the home section in the nav bar
-    highlightCurrentSection();
+    currentSectionGroup = nextSection;
+    highlightCurrentSection(allSectionGroup[currentSectionGroup]);
+
+    setTimeout(() => changable = true, 1000);
+    setTimeout(() => allSectionGroup[nextSection].style.overflow = "scroll", 700);
 }
 
 function setPageNum() {
@@ -189,32 +224,33 @@ function sectionJump(section) {
     // Check every section offset is updated
     sectionOffsetCheck();
 
-    // If users clicked any section other than the home section
-    if (section > 0) {
-        // When they are in the home section
-        if (checkHomeSection) {
-            // Hide home section and directly jump to the specific section
-            displayHomeSection(false);
-            window.scrollTo({
-                top: sectionOffset[section],
-                behavior: "instant",
-            });
-        } 
-        // When they are in any section other than the home section
-        else {
-            // Ensure users can access all section
-            displayHomeSection(false);
-            window.scrollTo({
-                top: sectionOffset[section],
-                behavior: "smooth",
-            });
-        } 
-    } 
-    // If users clicked the home section
-    else {
-        // Display the home section
-        displayHomeSection(true);
-    }
+
+    // // If users clicked any section other than the home section
+    // if (section > 0) {
+    //     // When they are in the home section
+    //     if (currentSectionGroup == 0) {
+    //         // Hide home section and directly jump to the specific section
+    //         displaySectionGroup(0, false);
+    //         window.scrollTo({
+    //             top: sectionOffset[section],
+    //             behavior: "instant",
+    //         });
+    //     } 
+    //     // When they are in any section other than the home section
+    //     else {
+    //         // Ensure users can access all section
+    //         displaySectionGroup(0, false);
+    //         window.scrollTo({
+    //             top: sectionOffset[section],
+    //             behavior: "smooth",
+    //         });
+    //     } 
+    // } 
+    // // If users clicked the home section
+    // else {
+    //     // Display the home section
+    //     displaySectionGroup(0, true);
+    // }
 }
 
 const allPageNum = document.querySelectorAll(".page-num");
