@@ -73,27 +73,6 @@ function displayProject() {
     }
 }
 
-function createScrollEffect() {
-    allSectionGroup.forEach((element, index) => {
-        element.addEventListener("wheel", event => {
-            // At the top of the section group
-            if (index - 1 >= 0 && currentSectionGroup == index && checkReachPosition(element, true) && event.deltaY < 0 && changable) {
-                console.log("Scroll back to previous section");
-                displaySectionGroup(index, index - 1);
-            }
-
-            if (index + 1 < allSectionGroup.length && currentSectionGroup == index && checkReachPosition(element, false) && event.deltaY > 0 && changable) {
-                console.log("Scroll to next section");
-                displaySectionGroup(index, index + 1);
-            }
-        });
-
-        element.addEventListener("scroll", event => {
-            highlightCurrentSection(element);
-        })
-    });
-}
-
 function createFooter() {
     var date = new Date;
     var footer = document.createElement("footer");
@@ -190,11 +169,23 @@ function highlightCurrentSection(curSectionGroup) {
 
 function displaySectionGroup(currentSection, nextSection) {
     changable = false;
+    allSectionGroup.forEach((element, index) => {
+        if (element == allSectionGroup[currentSection] || element == allSectionGroup[nextSection]) {
+            // console.log("Show", element);
+            element.style.zIndex = 99 - index;
+        }
+        else {
+            // console.log("Hide", element);
+            element.style.zIndex = 0;
+        }
+    });
+
     if (currentSection > nextSection) {
         // Back to previous section
         allSectionGroup[currentSection].style.overflow = "hidden";
         allSectionGroup[nextSection].style.transform = "translate3d(0, 0, 0)";
     } else {
+        // Proceed to next section
         allSectionGroup[currentSection].style.overflow = "hidden";
         allSectionGroup[currentSection].style.transform = "translate3d(0, -100%, 0)";
         allSectionGroup[nextSection].style.transform = "translate3d(0, 0, 0)";
@@ -220,37 +211,52 @@ function setPageNum() {
 
 
 // Button functions
+function createScrollEffect() {
+    allSectionGroup.forEach((element, index) => {
+        element.addEventListener("wheel", event => {
+            // At the top of the section group
+            if (index - 1 >= 0 && currentSectionGroup == index && checkReachPosition(element, true) && event.deltaY < 0 && changable) {
+                console.log("Scroll back to previous section");
+                displaySectionGroup(index, index - 1);
+            }
+
+            if (index + 1 < allSectionGroup.length && currentSectionGroup == index && checkReachPosition(element, false) && event.deltaY > 0 && changable) {
+                console.log("Scroll to next section");
+                displaySectionGroup(index, index + 1);
+            }
+        });
+
+        element.addEventListener("scroll", event => {
+            highlightCurrentSection(element);
+        })
+    });
+}
+
 function sectionJump(section) {
     // Check every section offset is updated
     sectionOffsetCheck();
+        
+    var curSectionGroup = currentSectionGroup;
+    var targetSection;
+    allSectionGroup.forEach((element, index) => {
+        if (element.contains(allSections[section])) targetSection = index;
+    });
 
+    displaySectionGroup(currentSectionGroup, targetSection);
 
-    // // If users clicked any section other than the home section
-    // if (section > 0) {
-    //     // When they are in the home section
-    //     if (currentSectionGroup == 0) {
-    //         // Hide home section and directly jump to the specific section
-    //         displaySectionGroup(0, false);
-    //         window.scrollTo({
-    //             top: sectionOffset[section],
-    //             behavior: "instant",
-    //         });
-    //     } 
-    //     // When they are in any section other than the home section
-    //     else {
-    //         // Ensure users can access all section
-    //         displaySectionGroup(0, false);
-    //         window.scrollTo({
-    //             top: sectionOffset[section],
-    //             behavior: "smooth",
-    //         });
-    //     } 
-    // } 
-    // // If users clicked the home section
-    // else {
-    //     // Display the home section
-    //     displaySectionGroup(0, true);
-    // }
+    if (!allSectionGroup.includes(allSections[section])) {
+        if (Array.from(allSections).includes(allSectionGroup[curSectionGroup])) {
+            allSections[section].closest(".back-slide").scrollTo({
+                top: sectionOffset[section],
+                behavior: "instant",
+            });
+        } else {
+            allSections[section].closest(".back-slide").scrollTo({
+                top: sectionOffset[section],
+                behavior: "smooth",
+            });
+        }
+    } 
 }
 
 const allPageNum = document.querySelectorAll(".page-num");

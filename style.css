@@ -30,16 +30,29 @@ h2 {
 	text-transform: uppercase;
 }
 
-.centerTxt {
-	margin: 0;
-	padding: 12.5vh 0 5vh;
+.back-slide {
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	transform: translate3d(0, 0%, 0);
+	transition: transform 0.5s ease-in;
+
+	position: absolute;
+	background-color: #252525;
+	overflow: hidden;
 }
 
-.centerTxt>p {
-	width: 70%;
+.content-container {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+.main-content {
+	position: relative;
+	width: 1080px;
 	margin: auto;
-	padding: 0;
-	text-align: center;
+	z-index: 5;
 }
 
 .section-bg {
@@ -332,30 +345,6 @@ h2 {
 
 
 
-.back-slide {
-	width: 100%;
-	height: 100vh;
-	top: 0;
-	transform: translate3d(0, 0%, 0);
-	transition: transform 0.5s ease-in;
-
-	position: absolute;
-	background-color: #252525;
-	overflow: hidden;
-}
-
-.content-container {
-	position: relative;
-	height: 100%;
-	width: 100%;
-}
-
-.main-content {
-	position: relative;
-	width: 1080px;
-	margin: auto;
-	z-index: 5;
-}
 
 #profile {
 	padding: 128px 0 64px;
