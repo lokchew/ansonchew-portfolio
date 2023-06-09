@@ -26,6 +26,17 @@ h2 {
     padding: 96px 0 32px;
 }
 
+fieldset {
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-block-start: 0;
+    padding-block-end: 0;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    border: none;
+    min-inline-size: min-content;
+}
+
 .uppercase {
 	text-transform: uppercase;
 }
@@ -40,6 +51,10 @@ h2 {
 	position: absolute;
 	background-color: #252525;
 	overflow: hidden;
+}
+
+.no-transition {
+	transition: none !important;
 }
 
 .content-container {
@@ -345,6 +360,11 @@ h2 {
 
 
 
+article > .content-container {
+	height: initial !important;
+	background: #ffffff;
+	transition: background 0.7s ease-out;
+}
 
 #profile {
 	padding: 128px 0 64px;
@@ -363,32 +383,49 @@ h2 {
 }
 
 #profile > div > a {
-	color: #ffffff;
+	color: #202020;
 	text-align: center;
 	font-size: 14px;
 	text-decoration: none;
 
-	padding: 1em;
-	border: #ffffff 1.5px solid;
-	border-radius: 10px;
+	padding: 0.9em 2em;
+	border: #353535 1.5px solid;
+	border-radius: 3px;
 }
 
 #profile > p {
 	margin: 0;
 	line-height: 1.8em;
-	color: #b3b3b3;
+	color: #353535;
 }
 
 #profile > p > span {
-	color: #ffffff;
+	color: #303030;
 	font-size: 32px;
-	font-weight: 500;
+	font-weight: 600;
+	font-family: 'Fjalla One';
+}
+
+#specialities {
+	padding-bottom: 32px;
+	color: #353535;
+}
+
+#specialities > h2 {
+	padding: 32px 0;
+	color: #303030;
 }
 
 
 
 
 
+
+
+#portfolio-section > div > h2 {
+	color: #303030;
+	transition: color 0.7s ease-out;
+}
 
 #projects-showcase {
 	display: flex;
@@ -515,7 +552,13 @@ h2 {
 	padding: 0;
 }
 
-#contact-section > div > div > h2 {
+#contact-section > div > .main-content {
+	top: 47.5%;
+	transform: translate(0, -50%);
+}
+
+#contact-title {
+	font-size: 64px;
 	margin: 0;
 	padding-bottom: 0;
 	text-align: center;
@@ -524,17 +567,7 @@ h2 {
 #contact-section > div > div > p {
 	margin: 16px 0 0;
 	text-align: center;
-}
-
-fieldset {
-    margin-inline-start: 0;
-    margin-inline-end: 0;
-    padding-block-start: 0;
-    padding-block-end: 0;
-    padding-inline-start: 0;
-    padding-inline-end: 0;
-    border: none;
-    min-inline-size: min-content;
+	color: #bababa;
 }
 
 /* Removing the default icon that is disrupting the design https://stackoverflow.com/questions/20937475/remove-datalist-dropdown-arrow-in-chrome */
@@ -545,7 +578,7 @@ fieldset {
 /* A container of the input form */
 #input-form-container {
     position: relative;
-    width: 80%;
+    width: 810px;
 	margin: 32px auto 96px;
 
     box-sizing: border-box;
@@ -559,13 +592,12 @@ fieldset {
 /* The form that user has to filled out to add the movie to their watched history */
 #input-form {
     width: 85%;
-    height: 470px;
-    padding-top: 32px;
+    padding: 32px 0;
     margin: auto;
 
     display: flex;
     flex-direction: column;
-    gap: 5%;
+    gap: 32px;
 }
 
 #contact-details {
@@ -577,38 +609,33 @@ fieldset {
 .contact-detail-contaienr > label {
     position: relative;
     top: -5px;
+	color: #cecece;
 }
 
 #contact-details > div > input {
     height: 2.5em;
     width: 100%;
-
-    font-size: 16px;
-    padding: 10px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-	
-	border: none;
-	border-radius: 3px;
 }
 
 #contact-message {
+	height: 160px;
 	width: 100%;
-	height: 250px;
 	resize: none;
+    font-family: 'Roboto', sans-serif;
+}
 
-	border: none;
-	border-radius: 3px;
-
+#contact-details > div > input, #contact-message {
 	padding: 10px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-	
+
+	border: 1.5px #5f5f5f solid;
+	border-radius: 3px;
+	background-color: transparent;
+
 	font-size: 16px;
-    color: #202020;
-    font-family: 'Roboto', sans-serif;
+	color: #ffffff;
 }
 
 input[name="submit_btn"] {
@@ -627,6 +654,11 @@ input[name="submit_btn"] {
 	border-radius: 5px;
 }
 
+input[name="submit_btn"]:hover {
+	background: #f0f0f0;
+    color: #1e1e1e;
+}
+
 
 
 
@@ -634,39 +666,10 @@ input[name="submit_btn"] {
 
 
 footer {
-	position: relative;
+	position: absolute;
+	bottom: 0;
 	width: 100%;
-	background: #2A2A2A;
 	color: #ffffff;
-
-	z-index: 5;
-}
-
-#footer-contact {
-	width: 50%;
-	margin: auto;
-	display: flex;
-	justify-content: space-between;
-
-	padding-top: 32px;
-}
-
-#footer-contact > div {
-	display: flex;
-	gap: 50px;
-}
-
-#footer-contact > div > .contact-header {
-	text-transform: uppercase;
-}
-
-footer > span {
-	display: block;
-	width: 50%;
-	height: 0.5px;
-
-	margin: 32px auto 20px;
-	background-color: #EDEDED;
 }
 
 #footer-connect {
@@ -677,7 +680,7 @@ footer > span {
 	justify-content: space-between;
 
 	text-align: center;
-	padding-bottom: 40px;
+	padding-bottom: 24px;
 }
 
 #connect-platforms {
@@ -686,7 +689,7 @@ footer > span {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 10px 0 15px;
+	margin: 8px 0 12px;
 
 	gap: 32px
 }

@@ -77,19 +77,7 @@ function createFooter() {
     var date = new Date;
     var footer = document.createElement("footer");
     footer.innerHTML = `
-    <div id="footer-contact">
-        <div>
-            <p class="contact-header">Contact email:</p>
-            <p>ansonchew.study@gmail.com</p>
-        </div>
-        <div>
-            <p class="contact-header">Mobile:</p>
-            <p>Avaliable via email</p>
-        </div>
-    </div>
-    <span></span>
     <div id="footer-connect">
-        <p>GET IN TOUCH</p>
         <div id="connect-platforms">
             <a style="background-image: url('image/footer/email.png');" href="mailto:ansonchew.study@gmail.com" target="_blank"></a>
             <a style="background-image: url('image/footer/github.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
@@ -158,6 +146,16 @@ function highlightCurrentSection(curSectionGroup) {
                 allNavLinks[highlightedSection].removeAttribute("id");
                 allNavLinks[i].setAttribute("id", "current-section");
                 highlightedSection = i;
+
+                if (highlightedSection == 2) {
+                    document.querySelector("article > .content-container").style.background = "#252525";
+                    document.querySelector("#portfolio-section > div > h2").style.color = "#ffffff";
+                }
+                else {
+                    document.querySelector("article > .content-container").style.background = "#ffffff";
+                    document.querySelector("#portfolio-section > div > h2").style.color = "#303030";
+                }
+                
                 return;
             }
         }
@@ -170,6 +168,7 @@ function highlightCurrentSection(curSectionGroup) {
 function displaySectionGroup(currentSection, nextSection) {
     changable = false;
     allSectionGroup.forEach((element, index) => {
+        element.classList.remove("no-transition");
         if (element == allSectionGroup[currentSection] || element == allSectionGroup[nextSection]) {
             // console.log("Show", element);
             element.style.zIndex = 99 - index;
@@ -177,6 +176,7 @@ function displaySectionGroup(currentSection, nextSection) {
         else {
             // console.log("Hide", element);
             element.style.zIndex = 0;
+            element.style.transform = "translate3d(0, -100%, 0)";
         }
     });
 
@@ -184,11 +184,15 @@ function displaySectionGroup(currentSection, nextSection) {
         // Back to previous section
         allSectionGroup[currentSection].style.overflow = "hidden";
         allSectionGroup[nextSection].style.transform = "translate3d(0, 0, 0)";
+        allSectionGroup[nextSection].scrollTo(0, allSectionGroup[nextSection].scrollHeight);
     } else {
         // Proceed to next section
         allSectionGroup[currentSection].style.overflow = "hidden";
         allSectionGroup[currentSection].style.transform = "translate3d(0, -100%, 0)";
+
+        allSectionGroup[nextSection].classList.add("no-transition");
         allSectionGroup[nextSection].style.transform = "translate3d(0, 0, 0)";
+        allSectionGroup[nextSection].scrollTo(0, 0);
     }
 
     currentSectionGroup = nextSection;
@@ -242,7 +246,7 @@ function sectionJump(section) {
         if (element.contains(allSections[section])) targetSection = index;
     });
 
-    displaySectionGroup(currentSectionGroup, targetSection);
+    if (currentSectionGroup != targetSection) displaySectionGroup(currentSectionGroup, targetSection);
 
     if (!allSectionGroup.includes(allSections[section])) {
         if (Array.from(allSections).includes(allSectionGroup[curSectionGroup])) {
