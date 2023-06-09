@@ -1,8 +1,11 @@
 // Functions to call when the page finishes loading
-document.addEventListener('DOMContentLoaded', () => {
-    getProjectJson();
-    createScrollEffect();
-    createFooter();
+let scrollEaseFunc;
+document.addEventListener('DOMContentLoaded', async () => {
+    await getProjectJson();
+    await createScrollEffect();
+    await createFooter();
+    scrollEaseFunc = scrollEaseEffect(allSectionGroup[1]);
+    scrollEaseFunc.easeAnimation();
 });
 
 // Variables for jumping to different sections
@@ -200,6 +203,60 @@ function displaySectionGroup(currentSection, nextSection) {
 
     setTimeout(() => changable = true, 1000);
     setTimeout(() => allSectionGroup[nextSection].style.overflow = "scroll", 700);
+
+    if (currentSection == 1) scrollEaseFunc.stopAnimation();
+    if (nextSection == 1) scrollEaseFunc.startAnimation();
+}
+
+function scrollEaseEffect(sectionGroup) {
+    // Easing scrolle effect inspired by https://stackoverflow.com/questions/60526256/easing-effect-on-scroll
+    const content = sectionGroup.firstElementChild;
+    const easeSpeed = 0.1;
+    let moveDistance = 0, curScroll = 0;
+    let restart = false, animate = false;
+
+    sectionGroup.addEventListener("scroll", () => {
+        moveDistance = sectionGroup.scrollTop;
+        // console.log("Move distance: " + moveDistance);
+    })
+
+    function easeAnimation() {
+        requestAnimationFrame(easeAnimation);
+        
+        if (restart) {
+            curScroll = moveDistance;
+            restart = false;
+        } 
+
+        if (animate) {
+            curScroll += easeSpeed * (moveDistance - curScroll);
+            if (Math.abs(curScroll) < 0.001) curScroll = 0;
+    
+            // Reducing the translateY to 0 to create easing effect (as the scroll effect is applied to the element already)
+            // It will now go further than the actual distance, but slowly reducing to get back to the proper position
+            var yPos = moveDistance - curScroll;
+            if (Math.abs(yPos) < 0.001) yPos = 0;
+            // console.log(curScroll);
+    
+            content.style.transform = `translateY(${yPos}px)`
+            // console.log("yPos: " + yPos);
+        }
+    }
+
+    function startAnimation() {
+        restart = true;
+        animate = true;
+    }
+
+    function stopAnimation() {
+        animate = false;
+    }
+
+    return {
+        easeAnimation: easeAnimation,
+        startAnimation: startAnimation,
+        stopAnimation: stopAnimation
+    };
 }
 
 function setPageNum() {
@@ -220,12 +277,12 @@ function createScrollEffect() {
         element.addEventListener("wheel", event => {
             // At the top of the section group
             if (index - 1 >= 0 && currentSectionGroup == index && checkReachPosition(element, true) && event.deltaY < 0 && changable) {
-                console.log("Scroll back to previous section");
+                // console.log("Scroll back to previous section");
                 displaySectionGroup(index, index - 1);
             }
 
             if (index + 1 < allSectionGroup.length && currentSectionGroup == index && checkReachPosition(element, false) && event.deltaY > 0 && changable) {
-                console.log("Scroll to next section");
+                // console.log("Scroll to next section");
                 displaySectionGroup(index, index + 1);
             }
         });

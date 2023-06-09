@@ -10,8 +10,6 @@ html, body {
 	color: #ffffff;
 	font-family: 'Open Sans', sans-serif; /* Creates friendly vibe */
 	font-style: normal;
-
-	overflow-x: hidden;
 }
 
 h2 {
@@ -45,12 +43,12 @@ fieldset {
 	width: 100%;
 	height: 100vh;
 	top: 0;
-	transform: translate3d(0, 0%, 0);
-	transition: transform 0.5s ease-in;
 
 	position: absolute;
 	background-color: #252525;
-	overflow: hidden;
+
+
+	transition: transform 0.5s ease-in;
 }
 
 .no-transition {
@@ -95,8 +93,11 @@ fieldset {
     /* Fix it to the top of the screen */
     background-color: #1E1E1E;
 	border: #EAEAEA 1px solid;
-    z-index: 100;
-    /* Avoid being covered by other elements */
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+	
+    z-index: 100; /* Avoid being covered by other elements */
 }
 
 .navbar-container {
@@ -164,7 +165,7 @@ fieldset {
 	width: 0%;
 
     left: 0;
-    bottom: 10px;
+    bottom: 12px;
 
 	background: linear-gradient(90deg, #FFFFFF 0%, #3C3C3C 100%);
 	border-radius: 5px;
@@ -362,6 +363,7 @@ fieldset {
 
 article > .content-container {
 	height: initial !important;
+	min-height: 100vh;
 	background: #ffffff;
 	transition: background 0.7s ease-out;
 }
@@ -553,7 +555,7 @@ article > .content-container {
 }
 
 #contact-section > div > .main-content {
-	top: 47.5%;
+	top: 45%;
 	transform: translate(0, -50%);
 }
 
@@ -680,7 +682,7 @@ footer {
 	justify-content: space-between;
 
 	text-align: center;
-	padding-bottom: 24px;
+	padding-bottom: 32px;
 }
 
 #connect-platforms {
