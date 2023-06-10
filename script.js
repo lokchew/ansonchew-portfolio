@@ -202,7 +202,7 @@ function displaySectionGroup(currentSection, nextSection) {
     highlightCurrentSection(allSectionGroup[currentSectionGroup]);
 
     setTimeout(() => changable = true, 1000);
-    setTimeout(() => allSectionGroup[nextSection].style.overflow = "scroll", 700);
+    setTimeout(() => allSectionGroup[nextSection].style.overflow = "scroll", 500);
 
     if (currentSection == 1) scrollEaseFunc.stopAnimation();
     if (nextSection == 1) scrollEaseFunc.startAnimation();
@@ -229,14 +229,13 @@ function scrollEaseEffect(sectionGroup) {
         } 
 
         if (animate) {
-            curScroll += easeSpeed * (moveDistance - curScroll);
-            if (Math.abs(curScroll) < 0.001) curScroll = 0;
-    
+            if (moveDistance >= sectionGroup.scrollHeight - window.innerHeight) curScroll = moveDistance;
+            else curScroll += easeSpeed * (moveDistance - curScroll);
+           
             // Reducing the translateY to 0 to create easing effect (as the scroll effect is applied to the element already)
             // It will now go further than the actual distance, but slowly reducing to get back to the proper position
             var yPos = moveDistance - curScroll;
-            if (Math.abs(yPos) < 0.001) yPos = 0;
-            // console.log(curScroll);
+            if (Math.abs(yPos) < 0.01) yPos = 0;
     
             content.style.transform = `translateY(${yPos}px)`
             // console.log("yPos: " + yPos);
@@ -339,3 +338,26 @@ function changePageNum(direction) {
     contentUpdate();
     sectionJump(2);
 }
+
+const contactForm = document.getElementById("input-form-container")
+contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    contactForm.reset();
+
+    contactForm.firstElementChild.style.opacity = "0";
+    var message = document.createElement("div");
+    message.setAttribute("id", "message");
+    message.style.opacity = "0";
+    message.innerHTML = `
+        <h3>Message Sent</h3>
+        <p>Thank you for reaching out, I will be in touch soon</p>
+    `
+    contactForm.appendChild(message);
+
+    await new Promise((resolve) => setTimeout(()=> {message.style.opacity = "1"; resolve();}, 500));
+    await new Promise((resolve) => setTimeout(()=> {message.style.opacity = "0"; resolve();}, 2000));
+    setTimeout(()=>{
+        contactForm.firstElementChild.style.opacity = "1";
+        contactForm.removeChild(message);
+    }, 500)
+})

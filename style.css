@@ -35,6 +35,11 @@ fieldset {
     min-inline-size: min-content;
 }
 
+::-webkit-scrollbar {
+	width: 0px;
+	height: 0px;
+}  
+
 .uppercase {
 	text-transform: uppercase;
 }
@@ -46,7 +51,6 @@ fieldset {
 
 	position: absolute;
 	background-color: #252525;
-
 
 	transition: transform 0.5s ease-in;
 }
@@ -350,7 +354,9 @@ fieldset {
 	border-radius: 32px;
 }
 
-#landing > p {
+#landing > i {
+	display: block;
+	width: 90%;
 	font-size: 16px;
 	line-height: 2em;
 	color: #8e8e8e;
@@ -446,6 +452,8 @@ article > .content-container {
 	height: 540px;
 	width: 100%;
 	overflow: hidden;
+
+	background: #1C1C1C;
 }
 
 .project-thumbnail {
@@ -453,17 +461,23 @@ article > .content-container {
 	height:100%;
 	background-size: cover;
 	background-position: center;
-	transition: transform 7s;
+	opacity: 0.7;
+
+	transition: transform 1.5s, opacity 0.5s ease-in;
 }
 
 .project:hover .project-thumbnail{
-	transform:scale(1.2);
+	transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+
+	opacity: 1;
 }
 
 .project-details {
 	position: absolute;
 	bottom: 0;
-	background-color: rgba(0, 0, 0, 0.9);
+	background-color: rgba(10, 10, 10, 0.9);
 }
 
 .project-details > div {
@@ -600,6 +614,8 @@ article > .content-container {
     display: flex;
     flex-direction: column;
     gap: 32px;
+
+	transition: opacity 0.5s ease-in;
 }
 
 #contact-details {
@@ -661,6 +677,27 @@ input[name="submit_btn"]:hover {
     color: #1e1e1e;
 }
 
+#message {
+	position: absolute;
+	top: 45%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	transition: opacity 0.5s ease-in;
+}
+
+#message > h3 {
+	color: #ff9900;
+	font-size: 40px;
+	font-weight: 600;
+	margin: 0 0 24px;
+}
+
+#message > p {
+	color: #cecece;
+	font-size: 14px;
+	margin: 0;
+}
 
 
 
