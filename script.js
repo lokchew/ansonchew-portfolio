@@ -87,9 +87,9 @@ function createFooter() {
     footer.innerHTML = `
     <div id="footer-connect">
         <div id="connect-platforms">
-            <a style="background-image: url('image/footer/email.png');" href="mailto:ansonchew.study@gmail.com" target="_blank"></a>
-            <a style="background-image: url('image/footer/github.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
-            <a style="background-image: url('image/footer/linkedin.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
+            <a alt="Email icon" style="background-image: url('image/footer/email.png');" href="mailto:ansonchew.study@gmail.com" target="_blank"></a>
+            <a alt="GitHub icon" style="background-image: url('image/footer/github.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
+            <a alt="Linkedin icon" style="background-image: url('image/footer/linkedin.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
         </div>
         <p style="font-size: 12px;">© ${date.getFullYear()}, Anson Chew</p>
     </div>
@@ -115,7 +115,7 @@ function endLoadingAnimation() {
         setTimeout(() => mainBody.style.opacity = 1, 700);
         setTimeout(() => loader.parentNode.removeChild(loader), 700);
     } else {
-        console.log("Wait for loading animation end");
+        // console.log("Wait for loading animation end");
         setTimeout(() => endLoadingAnimation(), 300);
     }
 }
@@ -135,11 +135,12 @@ function checkReachPosition(sectionGroup, top) {
     if (sectionGroup.scrollHeight > window.innerHeight) {
         // console.log(sectionGroup.scrollHeight);
         // console.log(sectionGroup.scrollTop);
+
         if (top) return sectionGroup.scrollTop == 0;
-        else return Math.floor(sectionGroup.scrollTop) == Math.floor(sectionGroup.scrollHeight - window.innerHeight);
+        else return Math.round(sectionGroup.scrollTop) == sectionGroup.scrollHeight - window.innerHeight;
     } else {
         if (top) return window.pageYOffset == 0;
-        else return Math.floor(window.pageYOffset) == Math.floor(sectionGroup.clientHeight - window.innerHeight);
+        else return Math.round(window.pageYOffset) == sectionGroup.clientHeight - window.innerHeight;
     }
 }
 
