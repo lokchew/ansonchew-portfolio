@@ -10,11 +10,6 @@ html, body {
 	background-color: #252525;
 }
 
-main {
-	opacity: 0;
-	transition: opacity 0.5s ease;
-}
-
 h2 {
 	position: relative;
 	font-family: 'Fjalla One';
@@ -579,7 +574,7 @@ article > .content-container {
 }
 
 #projects-page-num {
-	width: 20%;
+	width: 25%;
 	margin: auto;
 	padding: 48px 0;
 
@@ -591,7 +586,7 @@ article > .content-container {
 #projects-previous-page, #projects-next-page {
 	width: 24px;
 	height: 24px;
-	background-color: #00408a;
+	/* background-color: #00408a; */
 	border-radius: 32px;
 
 	display: flex;
@@ -600,12 +595,20 @@ article > .content-container {
 }
 
 .page-num {
+	height: 1.75em;
+	width: 1.75em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
 	margin: 0;
 	font-weight: 600;
+	
+	border-radius: 3em;
 }
 
 #current-page {
-	color: #0075FF;
+	background: #0075FF;
 }
 
 
