@@ -11,6 +11,13 @@
 
 	<link rel="icon" href="image/logo/logo16x16.png" type="image/x-icon"/>
 	<link rel="stylesheet" href="style.css" type="text/css">
+
+	<style>
+		/* To avoid the font not showing in some browsers https://stackoverflow.com/questions/36660893/css-open-sans-font */
+		/* With the proper font weight https://stackoverflow.com/questions/45114158/googles-open-sans-font-weight */
+		@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap');
+		@import url('https://fonts.googleapis.com/css?family=Fjalla One&display=swap');
+	</style>
 </head>
 
 <body>
@@ -42,7 +49,7 @@
 				</a>
 
 				<!-- A hamburger menu button that is displayed only when the screen size is small -->
-				<button type="button" id="navbar-toggle">
+				<button type="button" id="navbar-toggle" name="hamburger-menu">
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>

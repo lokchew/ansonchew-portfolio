@@ -1,8 +1,3 @@
-/* To avoid the font not showing in some browsers https://stackoverflow.com/questions/36660893/css-open-sans-font */
-/* With the proper font weight https://stackoverflow.com/questions/45114158/googles-open-sans-font-weight */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Fjalla One&display=swap');
-
 html, body {
 	width: 100vw;
 	margin: 0;
