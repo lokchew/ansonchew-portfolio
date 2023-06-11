@@ -192,14 +192,14 @@ svg path {
     overflow: hidden;
 }
 
-#navbar-menu>ul>li {
+.navbar-item {
     display: inline;
     line-height: 64px;
     padding: 0 30px;
     width: 100%;
 }
 
-#navbar-menu>ul>li>a {
+.navbar-link {
     position: relative;
     display: block;
     color: #bcbcbc;
@@ -211,11 +211,11 @@ svg path {
 	transition: color 0.2s ease-out;
 }
 
-#navbar-menu>ul>li>a:hover {
+.navbar-link:hover {
     color: #ffffff;
 }
 
-#navbar-menu>ul>li>a::after {
+.navbar-link::after {
     position: absolute;
     content: "";
     height: 3px;
@@ -274,23 +274,23 @@ svg path {
         background-color: #1C1C1C;
     }
 
-    #navbar-menu>ul>li {
+    .navbar-item {
         line-height: 64px;
         width: 80%;
     }
 
-    #navbar-menu>ul>li>a:hover {
+    .navbar-item > .navbar-link:hover {
         border-bottom: 0;
     }
 
-    .navbar-item>.hori-line {
+    .navbar-item > .hori-line {
         display: block;
         width: 100%;
         height: 0.5px;
         background-color: #EDEDED;
     }
 
-    #navbar-menu>ul>li>a:hover::after {
+    .navbar-item > .navbar-link:hover::after {
         height: 3px;
         width: 100%;
     }
