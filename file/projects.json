@@ -2,35 +2,35 @@
     "DECO3100": {
         "title": "Plastic Waste Data Visualisation Website ",
         "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-        "thumbnail": "image/project/DECO3100.png",
+        "thumbnail": "image/project/DECO3100.webp",
         "research": "",
         "product": "https://ansonchewhl.github.io/DECO3100_A2_hche2187/"
     },
     "DECO2200": {
         "title": "Plastic Recycling & Earn Prototype",
         "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-        "thumbnail": "image/project/DECO2200.png",
+        "thumbnail": "image/project/DECO2200.webp",
         "research": "file/project/Plastic Recycling & Earn Prototype.pdf",
         "product": "https://www.figma.com/proto/fitcB9B5tCvsW7EJbLHYRu/DECO2200_T4_Final-Prototype?type=design&node-id=104-16850&scaling=scale-down&page-id=104%3A5532&starting-point-node-id=104%3A16850"
     },
     "DECO2017": {
         "title": "Movie Experience Tracking Website",
         "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-        "thumbnail": "image/project/DECO2017.png",
+        "thumbnail": "image/project/DECO2017.webp",
         "research": "file/project/Movie Experience Tracking Website.pdf",
         "product": "https://deco2017-a3-hche2187.glitch.me"
     },
     "DECO2014": {
         "title": "Smartphone Distraction Solution Prototype",
         "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-        "thumbnail": "image/project/DECO2014.png",
+        "thumbnail": "image/project/DECO2014.webp",
         "research": "file/project/Smartphone Distraction Solution Prototype.pdf",
         "product": ""
     },
     "DECO1016": {
         "title": "Tokyo Tourism Promotion Website",
         "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-        "thumbnail": "image/project/DECO1016.png",
+        "thumbnail": "image/project/DECO1016.webp",
         "research": "file/project/Tokyo Tourism Promotion Website.pdf",
         "product": "https://ansonchewhl.github.io/DECO1016_A3_hche2187/"
     }
