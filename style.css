@@ -10,6 +10,13 @@ html, body {
 	color: #ffffff;
 	font-family: 'Open Sans', sans-serif; /* Creates friendly vibe */
 	font-style: normal;
+
+	background-color: #252525;
+}
+
+main {
+	opacity: 0;
+	transition: opacity 0.5s ease;
 }
 
 h2 {
@@ -84,6 +91,51 @@ fieldset {
 
 /* End of default properties */
 
+
+
+
+
+#loader {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	background-color: #1C1C1C;
+	transition: opacity 0.5s, visibility 0.5s;
+
+	z-index: 99999;
+}
+
+#loader > svg {
+	min-width: 256px;
+	min-height: 256px;
+}
+
+svg path {
+	transform-origin: center;
+	transform-box: fill-box;
+	animation: loadingRotation 1.5s ease;
+}
+
+@keyframes loadingRotation {
+	from {
+		transform: rotateZ(0deg);
+	}
+	to {
+		transform: rotateZ(360deg);
+	}
+}
+
+.element-hidden {
+	opacity: 0;
+	visibility: hidden;
+}
 
 
 

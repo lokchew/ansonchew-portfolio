@@ -1,3 +1,8 @@
+// Functions to call when the page is loading
+window.addEventListener("load", ()=> {
+    setTimeout(() => endLoadingAnimation(), 1000);
+})
+
 // Functions to call when the page finishes loading
 let scrollEaseFunc;
 document.addEventListener('DOMContentLoaded', async () => {
@@ -98,6 +103,23 @@ function createFooter() {
 
 
 // Sub functions
+const loader = document.getElementById("loader");
+let loadingAniamtionEnd = false;
+const loadingAnimation = loader.querySelector("svg path");
+loadingAnimation.addEventListener("animationend", () => loadingAniamtionEnd = true);
+function endLoadingAnimation() {
+    if (loadingAniamtionEnd) {
+        loader.classList.add("element-hidden");
+
+        const mainBody = document.querySelector("main");
+        setTimeout(() => mainBody.style.opacity = 1, 700);
+        setTimeout(() => loader.parentNode.removeChild(loader), 700);
+    } else {
+        console.log("Wait for loading animation end");
+        setTimeout(() => endLoadingAnimation(), 300);
+    }
+}
+
 let sectionOffset;
 function sectionOffsetCheck() {
     // Check each section's offset from the top of the website
