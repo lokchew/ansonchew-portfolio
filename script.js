@@ -87,9 +87,9 @@ function createFooter() {
     footer.innerHTML = `
     <div id="footer-connect">
         <div id="connect-platforms">
-            <a alt="Email icon" style="background-image: url('image/footer/email.png');" href="mailto:ansonchew.study@gmail.com" target="_blank"></a>
-            <a alt="GitHub icon" style="background-image: url('image/footer/github.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
-            <a alt="Linkedin icon" style="background-image: url('image/footer/linkedin.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
+            <a alt="Email icon" aria-label="Link to email" style="background-image: url('image/footer/email.png');" href="mailto:ansonchew.study@gmail.com" target="_blank"></a>
+            <a alt="GitHub icon" aria-label="Link to GitHub" style="background-image: url('image/footer/github.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
+            <a alt="Linkedin icon" aria-label="Link to Linkedin" style="background-image: url('image/footer/linkedin.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
         </div>
         <p style="font-size: 12px;">© ${date.getFullYear()}, Anson Chew</p>
     </div>
@@ -164,10 +164,11 @@ function highlightCurrentSection(curSectionGroup) {
         // If the section is the child of one of the section group
         if (allSectionGroup[currentSectionGroup].contains(allSections[i])) {
             // As currently we are using inner scroll group instead of a global one, window.pageYOffset won't work in this case
-            if (curSectionGroup.scrollTop >= sectionOffset[i] - (window.innerHeight / 4) && i != highlightedSection) {
+            if (Math.round(curSectionGroup.scrollTop) >= sectionOffset[i] - (window.innerHeight / 4) && i != highlightedSection) {
                 // Check if the section is the last one of its section group or not
                 if (i + 1 != sectionOffset.length && !allSectionGroup.includes(allSections[i + 1])) {
-                    if (curSectionGroup.scrollTop >= sectionOffset[i + 1] - (window.innerHeight / 4)) continue;
+                    // If there is section after it and the scroll top is bigger than the offset of the next section, highlight the next section instead
+                    if (Math.round(curSectionGroup.scrollTop) >= sectionOffset[i + 1] - (window.innerHeight / 4)) continue;
                 } 
                 allNavLinks[highlightedSection].removeAttribute("id");
                 allNavLinks[i].setAttribute("id", "current-section");
@@ -254,7 +255,7 @@ function scrollEaseEffect(sectionGroup) {
         if (animate) {
             if (moveDistance >= sectionGroup.scrollHeight - window.innerHeight) curScroll = moveDistance;
             else curScroll += easeSpeed * (moveDistance - curScroll);    
-                   
+
             // Reducing the translateY to 0 to create easing effect (as the scroll effect is applied to the element already)
             // It will now go further than the actual distance, but slowly reducing to get back to the proper position
             var yPos = moveDistance - curScroll;
