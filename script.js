@@ -239,7 +239,7 @@ function scrollEaseEffect(sectionGroup) {
     let restart = false, animate = false;
 
     sectionGroup.addEventListener("scroll", () => {
-        moveDistance = sectionGroup.scrollTop;
+        moveDistance = Math.round(sectionGroup.scrollTop);
         // console.log("Move distance: " + moveDistance);
     })
 
@@ -253,8 +253,8 @@ function scrollEaseEffect(sectionGroup) {
 
         if (animate) {
             if (moveDistance >= sectionGroup.scrollHeight - window.innerHeight) curScroll = moveDistance;
-            else curScroll += easeSpeed * (moveDistance - curScroll);
-           
+            else curScroll += easeSpeed * (moveDistance - curScroll);    
+                   
             // Reducing the translateY to 0 to create easing effect (as the scroll effect is applied to the element already)
             // It will now go further than the actual distance, but slowly reducing to get back to the proper position
             var yPos = moveDistance - curScroll;
