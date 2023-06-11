@@ -1,6 +1,6 @@
 // Functions to call when the page is loading
 window.addEventListener("load", ()=> {
-    setTimeout(() => endLoadingAnimation(), 1000);
+    setTimeout(() => endLoadingAnimation(), 500);
 })
 
 // Functions to call when the page finishes loading
@@ -306,7 +306,7 @@ function createScrollEffect() {
                 // console.log("Scroll to next section");
                 displaySectionGroup(index, index + 1);
             }
-        });
+        }, {passive: true});
 
         element.addEventListener("scroll", event => {
             highlightCurrentSection(element);

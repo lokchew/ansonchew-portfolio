@@ -1,6 +1,6 @@
 /* To avoid the font not showing in some browsers https://stackoverflow.com/questions/36660893/css-open-sans-font */
 /* With the proper font weight https://stackoverflow.com/questions/45114158/googles-open-sans-font-weight */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap');
 
 html, body {
 	width: 100vw;
@@ -174,6 +174,7 @@ svg path {
 	margin: 0;
 	padding: 0;
     height: 64px;
+	width: 64px;
 }
 
 #navbar-menu {

@@ -1,1 +1,3 @@
 - Landing page parallax effect
+- Change img to webp format
+- responsiveness
