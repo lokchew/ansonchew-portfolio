@@ -418,9 +418,14 @@ svg path {
 	color: #8e8e8e;
 
 	opacity: 0;
-	transition: opacity 0.5s ease-in;
+	transform: translateY(20px);
+	transition: all 0.5s ease-in;
 }
 
+#fav-quote.animation {
+	opacity: 1;
+	transform: translateY(0px);
+}
 
 
 
@@ -483,6 +488,41 @@ article > .content-container {
 	color: #303030;
 }
 
+#specialities > div {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	row-gap: 48px;
+}
+
+.speciality-container {
+	width: 42.5%;
+	height: 156px;
+	display: flex;
+	align-items: center;
+	gap: 24px;
+
+	background: rgba(190, 190, 190, 0.1);
+	box-shadow: 0 15px 25px rgba(90, 90, 90, 0.3);
+	border-radius: 4px;
+	padding: 24px;
+}
+
+.speciality-container > img {
+	width: 96px;
+	height: 96px;
+}
+
+.speciality-container > div > h3 {
+	margin: 0 0 8px;
+}
+
+.speciality-container > div > p {
+	line-height: 1.8em;
+	margin: 0;
+	color: #7c7c7c;
+}
+
 
 
 
@@ -535,6 +575,8 @@ article > .content-container {
 }
 
 .project-details {
+	width: 100%;
+	
 	position: absolute;
 	bottom: 0;
 	background-color: rgba(0, 0, 0, 0.9);
@@ -669,8 +711,9 @@ article > .content-container {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 
+	background: rgba(40, 40, 40, 0.3);
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
-    border-radius: 10px;
+    border-radius: 12px;
 }
 
 /* The form that user has to filled out to add the movie to their watched history */
@@ -717,7 +760,7 @@ article > .content-container {
     -webkit-box-sizing: border-box;
 
 	border: 1.5px #5f5f5f solid;
-	border-radius: 3px;
+	border-radius: 4px;
 	background-color: transparent;
 
 	font-size: 16px;
@@ -737,7 +780,7 @@ input[name="submit_btn"] {
 	background: transparent;
     color: #ffffff;
     border: #ffffff 1.5px solid;
-	border-radius: 5px;
+	border-radius: 4px;
 }
 
 input[name="submit_btn"]:hover {

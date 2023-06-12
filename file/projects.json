@@ -1,42 +1,42 @@
 {
     "DECO3100": {
         "title": "Plastic Waste Data Visualisation Website ",
-        "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+        "intro": "The project focused on promoting the importance of reducing plastic waste, in order to protect the biodiversity and environment. The data was visualised to better illustrate the story and convince the audience.",
         "thumbnail": "image/project/DECO3100.webp",
         "research": "",
         "product": "https://ansonchewhl.github.io/DECO3100_A2_hche2187/"
     },
     "DECO2200": {
         "title": "Plastic Recycling & Earn Prototype",
-        "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+        "intro": "The user-centred research was conducted to analyse the public attitude toward plastic recycling. Based on the research result, an interactive Recycle and Earn app was prototyped and tested with participants using Figma.",
         "thumbnail": "image/project/DECO2200.webp",
         "research": "file/project/Plastic Recycling & Earn Prototype.pdf",
         "product": "https://www.figma.com/proto/fitcB9B5tCvsW7EJbLHYRu/DECO2200_T4_Final-Prototype?type=design&node-id=104-16850&scaling=scale-down&page-id=104%3A5532&starting-point-node-id=104%3A16850"
     },
     "DECO2017": {
         "title": "Movie Experience Tracking Website",
-        "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+        "intro": "A responsive tracking web app that moderates users movie watching experience, in which users can input their data through any device. The input data will be analysed and visualised to provide user feedback.",
         "thumbnail": "image/project/DECO2017.webp",
         "research": "file/project/Movie Experience Tracking Website.pdf",
         "product": "https://deco2017-a3-hche2187.glitch.me"
     },
     "DECO2014": {
         "title": "Smartphone Distraction Solution Prototype",
-        "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+        "intro": "The concept prototype of a VR game was designed to address the issue of smartphone distraction when working from home. A virtual pet was introduced and users have to stay focused on work in reality to earn virtual food and necessity for the pet.",
         "thumbnail": "image/project/DECO2014.webp",
         "research": "file/project/Smartphone Distraction Solution Prototype.pdf",
         "product": ""
     },
     "DECO1016": {
-        "title": "Tokyo Tourism Promotion Website",
-        "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+        "title": "Tokyo Tourism Promotion Microsite",
+        "intro": "A tourism microsite that helps to market Tokyo after the heavy impact of the pandemic on its economy. The website mainly targets family users and thus the research was carried out with them.",
         "thumbnail": "image/project/DECO1016.webp",
-        "research": "file/project/Tokyo Tourism Promotion Website.pdf",
+        "research": "file/project/Tokyo Tourism Promotion Microsite.pdf",
         "product": "https://ansonchewhl.github.io/DECO1016_A3_hche2187/"
     },
     "ARIN3640": {
         "title": "This War of Mine Game Analysis",
-        "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+        "intro": "This War of Mine is a war survival game that players are playing as a group of civilians. The gameplay was analysed to discover its impact on politics and how players are motivated to reflect on real-world issues, especially during the Russian invasion of Ukraine.",
         "thumbnail": "image/project/ARIN3640.webp",
         "research": "file/project/This War of Mine Game Analysis.pdf",
         "product": ""

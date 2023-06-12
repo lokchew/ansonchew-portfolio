@@ -154,11 +154,11 @@ function checkReachPosition(sectionGroup, top) {
             var easeScrollEnd = sectionGroup.firstElementChild.style.transform == "translateY(0px)"; 
             return easeScrollEnd && sectionGroup.scrollTop == 0;
         } else {
-            return Math.round(sectionGroup.scrollTop) == sectionGroup.scrollHeight - window.innerHeight;
+            return  sectionGroup.scrollHeight - window.innerHeight - sectionGroup.scrollTop < 1;
         }
     } else {
-        if (top) return window.pageYOffset == 0;
-        else return Math.round(window.pageYOffset) == sectionGroup.clientHeight - window.innerHeight;
+        if (top) return window.scrollY == 0;
+        else return sectionGroup.clientHeight - window.innerHeight - window.scrollY < 1;
     }
 }
 
@@ -256,7 +256,7 @@ function generateNewQuote() {
     const favQuotes = [`“Dedication sees dreams come true.” - Kobe Bryant`, `"The only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle." – Steve Jobs`, `“If you do the work, you get rewarded. There are no shortcuts in life.” - Michael Jordan`, `"It's better to hang out with people better than you. Pick out associates whose behavior is better than yours and you'll drift in that direction." - Warren Buffett`, `"If you're walking down the right path and you're willing to keep walking, eventually you'll make progress." - Barack Obama`];
     const favQuote = document.getElementById("fav-quote");
     favQuote.innerHTML = favQuotes[Math.floor(Math.random() * favQuotes.length)];    
-    favQuote.style.opacity = 1;
+    favQuote.classList.add("animation");
 }
 
 function scrollEaseEffect(sectionGroup) {
