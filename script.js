@@ -110,14 +110,28 @@ loadingAnimation.addEventListener("animationend", () => loadingAniamtionEnd = tr
 function endLoadingAnimation() {
     if (loadingAniamtionEnd) {
         loader.classList.add("element-hidden");
-
-        const mainBody = document.querySelector("main");
-        setTimeout(() => mainBody.style.opacity = 1, 700);
         setTimeout(() => loader.parentNode.removeChild(loader), 700);
+
+        const favQuote = document.getElementById("fav-quote");
+        setTimeout(() => generateNewQuote(), 500);
     } else {
         // console.log("Wait for loading animation end");
         setTimeout(() => endLoadingAnimation(), 300);
     }
+}
+
+function animateFadeIn(section) {
+    let animation = section.querySelectorAll(".animate");
+    animation = Array.from(animation);
+    
+    if (section.classList.contains("animate")) animation.push(section);
+
+    setTimeout(() => {
+        animation.forEach(element => {
+            element.classList.remove("animate");
+            element.classList.add("fade-in");
+        });
+    }, 300);
 }
 
 let sectionOffset;
@@ -136,8 +150,12 @@ function checkReachPosition(sectionGroup, top) {
         // console.log(sectionGroup.scrollHeight);
         // console.log(sectionGroup.scrollTop);
 
-        if (top) return sectionGroup.scrollTop == 0;
-        else return Math.round(sectionGroup.scrollTop) == sectionGroup.scrollHeight - window.innerHeight;
+        if (top)  {
+            var easeScrollEnd = sectionGroup.firstElementChild.style.transform == "translateY(0px)"; 
+            return easeScrollEnd && sectionGroup.scrollTop == 0;
+        } else {
+            return Math.round(sectionGroup.scrollTop) == sectionGroup.scrollHeight - window.innerHeight;
+        }
     } else {
         if (top) return window.pageYOffset == 0;
         else return Math.round(window.pageYOffset) == sectionGroup.clientHeight - window.innerHeight;
@@ -156,6 +174,7 @@ function highlightCurrentSection(curSectionGroup) {
                 highlightedSection = i;
                 allNavLinks.forEach(element => element.removeAttribute("id"));
                 allNavLinks[highlightedSection].setAttribute("id", "current-section");
+                animateFadeIn(curSectionGroup);
                 return;
             }
             continue;
@@ -182,7 +201,8 @@ function highlightCurrentSection(curSectionGroup) {
                     document.querySelector("article > .content-container").style.background = "#ffffff";
                     document.querySelector("#portfolio-section > div > h2").style.color = "#303030";
                 }
-                
+
+                animateFadeIn(allSections[i]);
                 return;
             }
         }
@@ -224,12 +244,19 @@ function displaySectionGroup(currentSection, nextSection) {
 
     currentSectionGroup = nextSection;
     highlightCurrentSection(allSectionGroup[currentSectionGroup]);
-
-    setTimeout(() => changable = true, 1000);
+    
     setTimeout(() => allSectionGroup[nextSection].style.overflow = "scroll", 500);
+    setTimeout(() => changable = true, 1000);
 
     if (currentSection == 1) scrollEaseFunc.stopAnimation();
     if (nextSection == 1) scrollEaseFunc.startAnimation();
+}
+
+function generateNewQuote() {
+    const favQuotes = [`“Dedication sees dreams come true.” - Kobe Bryant`, `"The only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle." – Steve Jobs`, `“If you do the work, you get rewarded. There are no shortcuts in life.” - Michael Jordan`, `"It's better to hang out with people better than you. Pick out associates whose behavior is better than yours and you'll drift in that direction." - Warren Buffett`, `"If you're walking down the right path and you're willing to keep walking, eventually you'll make progress." - Barack Obama`];
+    const favQuote = document.getElementById("fav-quote");
+    favQuote.innerHTML = favQuotes[Math.floor(Math.random() * favQuotes.length)];    
+    favQuote.style.opacity = 1;
 }
 
 function scrollEaseEffect(sectionGroup) {
@@ -259,7 +286,7 @@ function scrollEaseEffect(sectionGroup) {
             // Reducing the translateY to 0 to create easing effect (as the scroll effect is applied to the element already)
             // It will now go further than the actual distance, but slowly reducing to get back to the proper position
             var yPos = moveDistance - curScroll;
-            if (Math.abs(yPos) < 0.01) yPos = 0;
+            if (Math.abs(yPos) < 0.1) yPos = 0;
     
             content.style.transform = `translateY(${yPos}px)`
             // console.log("yPos: " + yPos);
@@ -330,12 +357,12 @@ function sectionJump(section) {
 
     if (!allSectionGroup.includes(allSections[section])) {
         if (Array.from(allSections).includes(allSectionGroup[curSectionGroup])) {
-            allSections[section].closest(".back-slide").scrollTo({
+            allSections[section].closest(".slide").scrollTo({
                 top: sectionOffset[section],
                 behavior: "instant",
             });
         } else {
-            allSections[section].closest(".back-slide").scrollTo({
+            allSections[section].closest(".slide").scrollTo({
                 top: sectionOffset[section],
                 behavior: "smooth",
             });

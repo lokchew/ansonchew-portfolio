@@ -33,5 +33,12 @@
         "thumbnail": "image/project/DECO1016.webp",
         "research": "file/project/Tokyo Tourism Promotion Website.pdf",
         "product": "https://ansonchewhl.github.io/DECO1016_A3_hche2187/"
+    },
+    "ARIN3640": {
+        "title": "This War of Mine Game Analysis",
+        "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+        "thumbnail": "image/project/ARIN3640.webp",
+        "research": "file/project/This War of Mine Game Analysis.pdf",
+        "product": ""
     }
 }
