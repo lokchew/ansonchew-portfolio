@@ -8,6 +8,7 @@ html, body {
 	font-style: normal;
 
 	background-color: #252525;
+	overflow: hidden;
 }
 
 h2 {
@@ -59,7 +60,7 @@ fieldset {
 
 .content-container {
 	position: relative;
-	height: 100%;
+	min-height: 100vh;
 	width: 100%;
 }
 
@@ -79,6 +80,30 @@ fieldset {
 	background-size: cover;
 	width: 100%;
 }
+
+
+@media screen and (max-width: 1180px) {
+	.main-content {
+		width: 900px;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	p {
+		font-size: 14px !important;
+	}
+
+	.main-content {
+		width: 90%;
+	}
+}
+
+@media screen and (max-width: 848px) {
+	.main-content {
+		width: 85%;
+	}
+}
+
 
 /* End of default properties */
 
@@ -156,7 +181,7 @@ svg path {
 }
 
 .navbar-container > a {
-	padding-left: 32px;
+	margin-left: 32px;
     height: 64px;
 }
 
@@ -241,16 +266,38 @@ svg path {
     z-index: 100;
 }
 
+@media screen and (max-width: 1440px) {
+	#navbar {
+		width: 70%;
+	}
+}
+
+@media screen and (max-width: 1180px) {
+	#navbar {
+		width: 100%;
+	}
+}
+
 /* Responsive nav bar learnt from DECO1016 unit */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 848px) {
+	.navbar-container {
+		justify-content: space-between;
+	}
+
     #navbar-menu {
         position: fixed;
+		height: 0;
         width: 100%;
+		overflow: hidden;
+
         top: 64px;
         left: 0;
         right: 0;
         bottom: 0;
-        display: none;
+
+        background-color: #1C1C1C;
+
+		transition: all 0.3s ease;
     }
 
     #navbar-menu ul {
@@ -261,49 +308,36 @@ svg path {
         left: 0;
         right: 0;
         width: 100%;
-        padding: 0.4em 0.8em 0;
-        background-color: #1C1C1C;
-    }
+        padding: 0.4em 0 0;    
+	}
 
     .navbar-item {
         line-height: 64px;
         width: 80%;
+		padding: 0;
+		margin: auto;
     }
 
-    .navbar-item > .navbar-link:hover {
-        border-bottom: 0;
-    }
-
-    .navbar-item > .hori-line {
-        display: block;
+    .navbar-link::after {
         width: 100%;
-        height: 0.5px;
-        background-color: #EDEDED;
-    }
-
-    .navbar-item > .navbar-link:hover::after {
-        height: 3px;
-        width: 100%;
-    }
-
-    #current-section::after {
-        height: 3px;
-        width: 100%;
+		bottom: 0 !important;
+		background:rgba(60, 60, 60, 0.3);
     }
 
     #navbar-toggle.active+#navbar-menu {
-        background-color: #1C1C1C;
-        display: flex;
+		height: 100%;
     }
 
     /* NAVBAR TOGGLE BUTTON */
     /* Styles for the hamburger style menu button */
     #navbar-toggle {
+		margin: 0 30px 0 0px;
         cursor: pointer;
         border: none;
         background-color: transparent;
         width: 40px;
         height: 40px;
+		
         display: flex;
         align-items: center;
         justify-content: center;
@@ -317,6 +351,8 @@ svg path {
         height: 4px;
         margin: 2px;
         background-color: #454545;
+
+		transition: transform 0.5s ease;
     }
 
     /* Set the colour of the menu bars when hovered */
@@ -348,6 +384,12 @@ svg path {
     }
 }
 
+@media screen and (max-width: 348px) {
+	.navbar-container {
+		padding: 0;
+	}
+}
+
 /* End of navbar */
 
 
@@ -362,8 +404,6 @@ svg path {
 }
 
 #landing {
-	width: 700px;
-
 	position: absolute;
 	left: 10%;
 	top: 50%;
@@ -383,6 +423,7 @@ svg path {
 	position: relative;
 	display: flex;
 	align-items: center;
+	gap: 10px;
 
 	font-size: 96px;
 	font-weight: 600;
@@ -390,10 +431,34 @@ svg path {
 
 	margin: 0 0 24px;
 
-	height: 1.35em;
-	width: fit-content;
+	width: 0;
 	overflow: hidden;
 	white-space: nowrap;
+
+	transition: width 1.5s ease-out;
+}
+
+#my-name.animation {
+	width: 100%;
+}
+
+#my-name::after {
+	content: "";
+	position: relative;
+	height: 1em;
+	width: 3px;
+	background-color: #EAEAEA;
+
+	animation: typingLoop 1.25s infinite;
+}
+
+@keyframes typingLoop {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
 #my-roles {
@@ -403,23 +468,28 @@ svg path {
 }
 
 #my-roles > span {
+	text-align: center;
+
 	font-size: 14px;
 	padding: 0.75em 2em;
 	border: #ffffff 1.5px solid;
 	border-radius: 32px;
+
+	transform: scale(0);
+	transition: transform 0.3s ease;
 }
 
 #fav-quote {
 	display: block;
-	min-height: 100px;
-	width: 90%;
+	height: 100px;
+	width: 680px;
 	font-size: 16px;
 	line-height: 2em;
 	color: #8e8e8e;
 
 	opacity: 0;
 	transform: translateY(20px);
-	transition: all 0.5s ease-in;
+	transition: opacity 0.5s ease-in, transform 0.5s ease-in;
 }
 
 #fav-quote.animation {
@@ -427,18 +497,105 @@ svg path {
 	transform: translateY(0px);
 }
 
+@media screen and (max-width: 848px) {
+	#landing > h1 {
+		font-size: 50px;
+	}
+	
+	#my-name {
+		font-size: clamp(64px, 10vw, 86px);
+	}
 
+	#my-roles {
+		margin-bottom: 32px;
+	}
+
+	#my-roles > span {
+		font-size: 12px;
+	}
+
+	#fav-quote {
+		width: 85%;
+		font-size: 14px;
+	}
+}
+
+@media screen and (max-width: 524px) {
+	#landing > h1 {
+		font-size: 44px;
+	}
+	
+	#my-name {
+		font-size: clamp(54px, 12vw, 64px);
+	}
+
+	#fav-quote {
+		width: 90%;
+	}
+}
+
+@media screen and (max-width: 440px) {
+	#landing {
+		width: 100%;
+		left: 0;
+		top: 52.5%;
+	}
+
+	#landing > h1 {
+		text-align: center;
+		font-size: 36px;
+	}
+
+	#my-name {
+		justify-content: center;
+
+		font-size: clamp(62px, 18vw, 80px);
+		text-align: center;
+		margin: 0 auto 24px;
+   		white-space: normal;
+	}
+
+	#my-name.animation {
+		width: 90%;
+	}
+
+	#my-name:after {
+		content: none;
+	}
+
+	#my-roles {
+		justify-content: center;
+		flex-direction: column;
+		width: 60%;
+		margin: 0 auto 32px;
+		gap: 24px;
+	}
+
+	#my-roles > span {
+		border: #4e4e4e 1.5px solid;
+    	color: #7f7f7f;
+	}
+
+	#fav-quote {
+		text-align: center;
+		margin: auto;
+	}
+}
 
 
 
 article > .content-container {
 	height: initial !important;
-	min-height: 100vh;
 	background: #ffffff;
 	transition: background 0.7s ease-out;
 }
 
+article > .content-container.animation {
+	background: #252525;
+}
+
 #profile {
+	width: 100%;
 	padding: 128px 0 64px;
 	display: flex;
 	gap: 76px;
@@ -447,6 +604,7 @@ article > .content-container {
 #profile > div {
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 }
 
 #profile > div > img {
@@ -455,12 +613,13 @@ article > .content-container {
 }
 
 #profile > div > a {
+	width: 100%;
 	color: #202020;
 	text-align: center;
 	font-size: 14px;
 	text-decoration: none;
 
-	padding: 0.9em 2em;
+	padding: 0.9em 0;
 	border: #353535 1.5px solid;
 	border-radius: 3px;
 }
@@ -472,6 +631,9 @@ article > .content-container {
 }
 
 #profile > p > span {
+	display: block;
+	padding-bottom: 24px;
+
 	color: #303030;
 	font-size: 32px;
 	font-weight: 600;
@@ -479,6 +641,7 @@ article > .content-container {
 }
 
 #specialities {
+	width: 100%;
 	padding-bottom: 32px;
 	color: #353535;
 }
@@ -523,7 +686,63 @@ article > .content-container {
 	color: #7c7c7c;
 }
 
+@media screen and (max-width: 848px) {
+	#profile {
+		flex-direction: column;
+		padding: 108px 0 64px;
+		gap: 64px;
+	}
 
+	#profile > div > a {
+		width: 100%;
+	}
+
+	#specialities > div {
+		flex-direction: column;
+		row-gap: 24px;
+	}
+
+	.speciality-container {
+		width: 100%;
+		height: 144px;
+		padding: 0 16px;
+
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
+
+	.speciality-container > img {
+		width: 72px;
+		height: 72px;
+	}
+
+	.speciality-container > div > h3 {
+		font-size: 16px;
+	}
+}
+
+@media screen and (max-width: 524px) {
+	.speciality-container {
+		height: fit-content;
+		padding: 24px 16px;
+	}
+}
+
+@media screen and (max-width: 416px) {
+	.speciality-container {
+		flex-direction: column;
+	}
+
+	.speciality-container > img {
+		width: 86px;
+		height: 86px;
+	}
+
+	.speciality-container > div {
+		text-align: center;
+	}
+}
 
 
 
@@ -532,6 +751,10 @@ article > .content-container {
 #portfolio-section > div > h2 {
 	color: #303030;
 	transition: color 0.7s ease-out;
+}
+
+article > .content-container.animation #portfolio-section > div > h2 {
+	color: #ffffff;
 }
 
 #projects-showcase {
@@ -549,6 +772,7 @@ article > .content-container {
 }
 
 .project-thumbnail-container {
+	display: block;
 	height: 540px;
 	width: 100%;
 	overflow: hidden;
@@ -596,7 +820,7 @@ article > .content-container {
 	font-size: 16px;
 	margin: 10px 0;
 	line-height: 2em;
-	color: #cecece;
+	color: #a3a3a3;
 }
 
 .project-btns {
@@ -633,6 +857,8 @@ article > .content-container {
 
 #projects-page-num {
 	width: 25%;
+	min-width: 256px;
+
 	margin: auto;
 	padding: 48px 0;
 
@@ -669,6 +895,62 @@ article > .content-container {
 	background: #0075FF;
 }
 
+@media screen and (max-width: 848px) {
+	.project-title {
+		font-size: 28px;
+	}
+
+	.project-btns > a {
+		font-size: 10px;
+		width: 160px;
+		height: 36px;
+	}
+}
+
+@media screen and (max-width: 512px) {
+	.project-thumbnail {
+		height: 50%;
+	}
+
+	.project-details {
+		width: 100%;
+		
+		position: absolute;
+		bottom: 0;
+		background-color: rgb(15, 15, 15);
+	}
+
+	.project-title {
+		font-size: 20px;
+	}
+	
+	.project-btns {
+		gap: unset;
+		justify-content: space-between;
+	}
+
+	.project-btns > a {
+		width: 47.5%;
+	}
+}
+
+@media screen and (max-width: 412px) {
+	.project-details > div {
+		padding: 10px 3% 20px;
+	}
+
+	.project-btns {
+		flex-direction: column;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.project-btns > a {
+		width: 80%;
+	}
+}
+
+
 
 
 
@@ -679,8 +961,10 @@ article > .content-container {
 }
 
 #contact-section > div > .main-content {
-	top: 45%;
-	transform: translate(0, -50%);
+	position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
 }
 
 #contact-title {
@@ -705,7 +989,7 @@ article > .content-container {
 #input-form-container {
     position: relative;
     width: 810px;
-	margin: 32px auto 96px;
+	margin: 32px auto 0;
 
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -789,6 +1073,8 @@ input[name="submit_btn"]:hover {
 }
 
 #message {
+	width: 80%;
+
 	position: absolute;
 	top: 45%;
 	left: 50%;
@@ -810,6 +1096,58 @@ input[name="submit_btn"]:hover {
 	margin: 0;
 }
 
+@media screen and (max-width: 1024px) {
+	#input-form-container {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 848px) {
+	#contact-title {
+		font-size: 48px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	#contact-title {
+		font-size: clamp(28px, 10vw, 40px);
+	}
+}
+
+@media screen and (max-height: 848px), (max-width: 848px), (orientation: portrait) {
+	#input-form-container {
+		margin: 24px auto 0;
+	}
+	
+	.contact-detail-contaienr > label {
+		font-size: 14px;
+	}
+
+	#input-form {
+		gap: 20px;
+		padding: 24px 0;
+	}
+
+	#contact-details {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	input[name="submit_btn"] {
+		margin: 8px auto;
+	}
+}
+
+@media screen and (max-height: 848px) {
+	#contact-section > div > .main-content {
+		position: relative;
+		top: 0;
+		left: 0;
+		transform: translate(0, 0);
+		padding-top: 84px;
+	}
+}
 
 
 
@@ -860,7 +1198,19 @@ footer {
 	width: 48px;
 }
 
+@media screen and (max-height: 848px) {
+	footer {
+		position: relative;
+	}
 
+	#footer-connect {
+		padding: 32px 0 16px;
+	}
+
+	#connect-platforms {
+		margin: 0;
+	}
+}
 
 
 

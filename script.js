@@ -6,12 +6,16 @@ window.addEventListener("load", ()=> {
 // Functions to call when the page finishes loading
 let scrollEaseFunc;
 document.addEventListener('DOMContentLoaded', async () => {
+    navbarResponsive();
+
     await getProjectJson();
     await createScrollEffect();
     await createFooter();
     scrollEaseFunc = scrollEaseEffect(allSectionGroup[1]);
     scrollEaseFunc.easeAnimation();
 });
+
+window.addEventListener('resize', ()=> {contentUpdate()}, true);
 
 // Variables for jumping to different sections
 const allNavLinks = document.querySelectorAll(".navbar-link");
@@ -22,7 +26,7 @@ const articleSection = document.querySelector("article");
 const contactSection = document.getElementById("contact-section");
 const allSectionGroup = [homeSection, articleSection, contactSection];
 let currentSectionGroup = 0;
-let changable = true;
+let changable = false;
 
 async function contentUpdate() {
     await displayProject();
@@ -112,8 +116,7 @@ function endLoadingAnimation() {
         loader.classList.add("element-hidden");
         setTimeout(() => loader.parentNode.removeChild(loader), 700);
 
-        const favQuote = document.getElementById("fav-quote");
-        setTimeout(() => generateNewQuote(), 500);
+        landingAnimation();
     } else {
         // console.log("Wait for loading animation end");
         setTimeout(() => endLoadingAnimation(), 300);
@@ -151,8 +154,9 @@ function checkReachPosition(sectionGroup, top) {
         // console.log(sectionGroup.scrollTop);
 
         if (top)  {
-            var easeScrollEnd = sectionGroup.firstElementChild.style.transform == "translateY(0px)"; 
-            return easeScrollEnd && sectionGroup.scrollTop == 0;
+            var easeScrollEnd = sectionGroup.firstElementChild.style.transform
+            if (easeScrollEnd == "translateY(0px)" || easeScrollEnd == "") return sectionGroup.scrollTop == 0;
+            else return false;
         } else {
             return  sectionGroup.scrollHeight - window.innerHeight - sectionGroup.scrollTop < 1;
         }
@@ -193,15 +197,7 @@ function highlightCurrentSection(curSectionGroup) {
                 allNavLinks[i].setAttribute("id", "current-section");
                 highlightedSection = i;
 
-                if (highlightedSection == 2) {
-                    document.querySelector("article > .content-container").style.background = "#252525";
-                    document.querySelector("#portfolio-section > div > h2").style.color = "#ffffff";
-                }
-                else {
-                    document.querySelector("article > .content-container").style.background = "#ffffff";
-                    document.querySelector("#portfolio-section > div > h2").style.color = "#303030";
-                }
-
+                articleSection.firstElementChild.classList.toggle("animation", highlightedSection == 2);
                 animateFadeIn(allSections[i]);
                 return;
             }
@@ -250,6 +246,17 @@ function displaySectionGroup(currentSection, nextSection) {
 
     if (currentSection == 1) scrollEaseFunc.stopAnimation();
     if (nextSection == 1) scrollEaseFunc.startAnimation();
+}
+
+async function landingAnimation() {
+    const myName = document.getElementById("my-name");
+    const myRoles = document.getElementById("my-roles").querySelectorAll("span");
+    await new Promise((resolve) => setTimeout(()=> {myName.classList.add("animation"); resolve();}, 500));
+    await new Promise((resolve) => setTimeout(()=> {myRoles[0].style.transform = "scale(1)"; resolve();}, 1000));
+    await new Promise((resolve) => setTimeout(()=> {myRoles[1].style.transform = "scale(1)"; resolve();}, 500));
+    await new Promise((resolve) => setTimeout(()=> {generateNewQuote(); resolve();}, 500));
+    setTimeout(()=> changable = true, 500);
+
 }
 
 function generateNewQuote() {
@@ -322,6 +329,34 @@ function setPageNum() {
 
 
 // Button functions
+// A function that adds responsiveness to the navbar
+function navbarResponsive() {
+    // Nav-bar animation
+    // Create a variable to reference the toggle <button>
+    var navbarToggle = navbar.querySelector("#navbar-toggle");
+
+    // Create a variable to reference the nav menu container <div>
+    var navbarMenu = document.querySelector("#navbar-menu");
+
+    // Create a variable to reference the <ul> list of nav links
+    var navbarLinksContainer = navbarMenu.querySelector(".navbar-links");
+
+    // Add or remove the 'active' class on the toggle <button> when clicked
+    navbarToggle.addEventListener("click", () => { navbarToggle.classList.toggle('active') });
+
+    // Remove the 'active' class on the menu container <div> when clicked 
+    // This will close the menu if the user clicks outside the nav link <ul>
+    navbarMenu.addEventListener("click", () => { navbarToggle.classList.remove('active') });
+
+    // Close the nav bar menu when users click any section tag
+    for (var i = 0; i < allNavLinks.length; i++) {
+        allNavLinks[i].addEventListener("click", () => { navbarToggle.classList.remove('active') });
+    }
+
+    // Stop clicks on the navbar links from toggling the menu (for when it's not mobile)
+    navbarLinksContainer.addEventListener("click", (e) => e.stopPropagation());
+}
+
 function createScrollEffect() {
     allSectionGroup.forEach((element, index) => {
         element.addEventListener("wheel", event => {
