@@ -111,7 +111,7 @@ fieldset {
 
 
 
-#loader {
+#loader-container {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -128,9 +128,9 @@ fieldset {
 	z-index: 99999;
 }
 
-#loader > svg {
-	min-width: 256px;
-	min-height: 256px;
+#loader {
+	width: 256px;
+	height: 256px;
 }
 
 svg path {
@@ -153,6 +153,13 @@ svg path {
 	visibility: hidden;
 }
 
+@media screen and (max-width: 524px) {
+	#loader {
+		width: 156px;
+		height: 156px;
+	}
+}
+
 
 
 
@@ -164,7 +171,7 @@ svg path {
     position: fixed;
     /* Fix it to the top of the screen */
     background-color: #1E1E1E;
-	border: #EAEAEA 1px solid;
+	border: #3c3c3c 1px solid;
 	box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -296,9 +303,11 @@ svg path {
         bottom: 0;
 
         background-color: #1C1C1C;
-
-		transition: all 0.3s ease;
     }
+
+    #navbar-menu.animation {
+		transition: all 0.3s ease;
+	}
 
     #navbar-menu ul {
         position: absolute;
@@ -350,14 +359,9 @@ svg path {
         width: 25px;
         height: 4px;
         margin: 2px;
-        background-color: #454545;
+        background-color: #808080;
 
 		transition: transform 0.5s ease;
-    }
-
-    /* Set the colour of the menu bars when hovered */
-    #navbar-toggle:hover .icon-bar {
-        background-color: #787878;
     }
 
     /* Set the icon bars for when the menu is active i.e. when the cross to close is showing */
@@ -472,7 +476,9 @@ svg path {
 
 	font-size: 14px;
 	padding: 0.75em 2em;
-	border: #ffffff 1.5px solid;
+
+	border: #4e4e4e 1.5px solid;
+	color: #a1a1a1;
 	border-radius: 32px;
 
 	transform: scale(0);
@@ -510,10 +516,6 @@ svg path {
 		margin-bottom: 32px;
 	}
 
-	#my-roles > span {
-		font-size: 12px;
-	}
-
 	#fav-quote {
 		width: 85%;
 		font-size: 14px;
@@ -531,6 +533,10 @@ svg path {
 
 	#fav-quote {
 		width: 90%;
+	}
+
+	#my-roles > span {
+		font-size: 12px;
 	}
 }
 
@@ -569,11 +575,6 @@ svg path {
 		width: 60%;
 		margin: 0 auto 32px;
 		gap: 24px;
-	}
-
-	#my-roles > span {
-		border: #4e4e4e 1.5px solid;
-    	color: #7f7f7f;
 	}
 
 	#fav-quote {
@@ -1136,6 +1137,8 @@ input[name="submit_btn"]:hover {
 
 	input[name="submit_btn"] {
 		margin: 8px auto;
+		font-size: 14px;
+		border: #ffffff 1px solid;
 	}
 }
 

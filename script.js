@@ -1,3 +1,14 @@
+// Variables for jumping to different sections
+const allNavLinks = document.querySelectorAll(".navbar-link");
+const allSections = document.querySelectorAll(".main-section");
+
+const homeSection = document.getElementById("home-section");
+const articleSection = document.querySelector("article");
+const contactSection = document.getElementById("contact-section");
+const allSectionGroup = [homeSection, articleSection, contactSection];
+let currentSectionGroup = 0;
+let changable = false;
+
 // Functions to call when the page is loading
 window.addEventListener("load", ()=> {
     setTimeout(() => endLoadingAnimation(), 500);
@@ -39,24 +50,12 @@ async function getProjectJson() {
 }
 
 
-// Variables for jumping to different sections
-const allNavLinks = document.querySelectorAll(".navbar-link");
-const allSections = document.querySelectorAll(".main-section");
-
-const homeSection = document.getElementById("home-section");
-const articleSection = document.querySelector("article");
-const contactSection = document.getElementById("contact-section");
-const allSectionGroup = [homeSection, articleSection, contactSection];
-let currentSectionGroup = 0;
-let changable = false;
-
-
 
 
 
 
 // Sub functions
-const loader = document.getElementById("loader");
+const loader = document.getElementById("loader-container");
 let loadingAniamtionEnd = false;
 const loadingAnimation = loader.querySelector("svg path");
 loadingAnimation.addEventListener("animationend", () => loadingAniamtionEnd = true);
@@ -173,7 +172,7 @@ function highlightCurrentSection(curSectionGroup) {
     // Function for the nav bar current selection underliner
     // Check whether the scroll position arrived a new section. If true, change the id attribute to restyle the nav bar and current selection
     
-    for (var i = 0; i < sectionOffset.length; i++) {
+    for (var i = 0; i < allSections.length; i++) {
         // If the section is one of the section group
         if (allSectionGroup.includes(allSections[i])) {
             if (window.pageYOffset == 0 && allSections[i] == curSectionGroup && i != highlightedSection) {
@@ -182,8 +181,9 @@ function highlightCurrentSection(curSectionGroup) {
                 allNavLinks[highlightedSection].setAttribute("id", "current-section");
                 animateFadeIn(curSectionGroup);
                 return;
+            } else {
+                continue;
             }
-            continue;
         } 
 
         // If the section is the child of one of the section group
@@ -347,7 +347,7 @@ function navbarResponsive() {
     var navbarLinksContainer = navbarMenu.querySelector(".navbar-links");
 
     // Add or remove the 'active' class on the toggle <button> when clicked
-    navbarToggle.addEventListener("click", () => { navbarToggle.classList.toggle('active') });
+    navbarToggle.addEventListener("click", () => { navbarMenu.classList.add('animation'); navbarToggle.classList.toggle('active') });
 
     // Remove the 'active' class on the menu container <div> when clicked 
     // This will close the menu if the user clicks outside the nav link <ul>
@@ -355,7 +355,7 @@ function navbarResponsive() {
 
     // Close the nav bar menu when users click any section tag
     for (var i = 0; i < allNavLinks.length; i++) {
-        allNavLinks[i].addEventListener("click", () => { navbarToggle.classList.remove('active') });
+        allNavLinks[i].addEventListener("click", () => { navbarMenu.classList.remove('animation'); navbarToggle.classList.remove('active') });
     }
 
     // Stop clicks on the navbar links from toggling the menu (for when it's not mobile)
@@ -378,7 +378,7 @@ function createScrollEffect() {
         }, {passive: true});
 
         element.addEventListener("scroll", event => {
-            highlightCurrentSection(element);
+            if (currentSectionGroup == index) highlightCurrentSection(element);
         }, {passive: true})
 
         handleMobileScroll(element, index);
@@ -388,22 +388,26 @@ function createScrollEffect() {
 function handleMobileScroll(element, index) {
     let startY;
     document.body.addEventListener('touchstart', event => {
+        // event.preventDefault();
         startY = event.touches[0].clientY;
-    });
+    }, {passive: false});
 
     document.body.addEventListener("touchmove", event => {
+        var checkPos = false;
         var deltaY = event.touches[0].clientY - startY;
-        console.log("Touch scroll: " + deltaY);
+        // console.log("Touch scroll: " + deltaY);
 
         // At the top of the section group
         if (index - 1 >= 0 && currentSectionGroup == index && checkReachPosition(element, true) && deltaY > 0 && changable) {
             // console.log("Scroll back to previous section");
             displaySectionGroup(index, index - 1);
+            checkPos = true;
         }
 
         if (index + 1 < allSectionGroup.length && currentSectionGroup == index && checkReachPosition(element, false) && deltaY < 0 && changable) {
             // console.log("Scroll to next section");
             displaySectionGroup(index, index + 1);
+            checkPos = true;
         }
     })
 }
