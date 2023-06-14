@@ -155,16 +155,15 @@ function checkReachPosition(sectionGroup, top) {
     if (sectionGroup.scrollHeight > window.innerHeight) {
         // console.log(sectionGroup.scrollHeight);
         // console.log(sectionGroup.scrollTop);
-
         if (top)  {
             var easeScrollEnd = sectionGroup.firstElementChild.style.transform
-            if (easeScrollEnd == "translateY(0px)" || easeScrollEnd == "") return sectionGroup.scrollTop == 0;
+            if (easeScrollEnd == "translateY(0px)" || easeScrollEnd == "") return sectionGroup.scrollTop <= 0;
             else return false;
         } else {
             return  sectionGroup.scrollHeight - window.innerHeight - sectionGroup.scrollTop < 1;
         }
     } else {
-        if (top) return window.scrollY == 0;
+        if (top) return window.scrollY <= 0;
         else return sectionGroup.clientHeight - window.innerHeight - window.scrollY < 1;
     }
 }
@@ -388,13 +387,13 @@ function createScrollEffect() {
 
 function handleMobileScroll(element, index) {
     let startY;
-    element.addEventListener('touchstart', event => {
+    document.body.addEventListener('touchstart', event => {
         startY = event.touches[0].clientY;
     });
 
-    element.addEventListener("touchmove", event => {
+    document.body.addEventListener("touchmove", event => {
         var deltaY = event.touches[0].clientY - startY;
-        // console.log("Touch scroll: " + deltaY);
+        console.log("Touch scroll: " + deltaY);
 
         // At the top of the section group
         if (index - 1 >= 0 && currentSectionGroup == index && checkReachPosition(element, true) && deltaY > 0 && changable) {
