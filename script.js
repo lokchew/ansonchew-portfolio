@@ -11,22 +11,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     await getProjectJson();
     await createScrollEffect();
     await createFooter();
-    scrollEaseFunc = scrollEaseEffect(allSectionGroup[1]);
-    scrollEaseFunc.easeAnimation();
+
+    // Add scroll ease effect if the users are using a desktop browser
+    if ((window.innerWidth > 800 ) && (window.innerHeight > 600)) {
+        scrollEaseFunc = scrollEaseEffect(allSectionGroup[1]);
+        scrollEaseFunc.easeAnimation();
+    }
 });
 
 window.addEventListener('resize', ()=> {contentUpdate()}, true);
-
-// Variables for jumping to different sections
-const allNavLinks = document.querySelectorAll(".navbar-link");
-const allSections = document.querySelectorAll(".main-section");
-
-const homeSection = document.getElementById("home-section");
-const articleSection = document.querySelector("article");
-const contactSection = document.getElementById("contact-section");
-const allSectionGroup = [homeSection, articleSection, contactSection];
-let currentSectionGroup = 0;
-let changable = false;
 
 async function contentUpdate() {
     await displayProject();
@@ -48,58 +41,17 @@ async function getProjectJson() {
     contentUpdate();
 }
 
-let pageNum = 1;
-const showcasetNum = 2;
-const projectsContainer = document.getElementById("projects-showcase");
-function displayProject() {    
-    // How many projects to show in each page
-    projectsContainer.innerHTML = "";
-    for (var i = 0; i < showcasetNum; i++) {
-        var index = (pageNum - 1) * showcasetNum + i;
-        if (index < allProjects.length) {
-            let projectContainer = document.createElement("div");
-            projectContainer.setAttribute("class", "project");
-            projectContainer.innerHTML = `
-            <div class="project-thumbnail-container"><div class="project-thumbnail" style="background-image: url('${allProjects[index].thumbnail}')"></div></div>
-            <div class="project-details">
-                <div>
-                    <h3 class="project-title">${allProjects[index].title}</h3>
-                    <p class="project-intro">${allProjects[index].intro}</p>
-                    <div class="project-btns">
-                    </div>
-                </div>
-            </div>
-            `
-            var projectBtns = projectContainer.querySelector(".project-btns");
-            var research = allProjects[index].research;
-            var product = allProjects[index].product;
 
-            if (research != "") {
-                projectBtns.innerHTML += `<a class="uppercase view-research-btn" href="${research}" target="_blank">View Research</a>`
-            }
-            if (product != "") {
-                projectBtns.innerHTML += `<a class="uppercase view-product-btn" href="${product}" target="_blank">View Product</a>`
-            }
-            projectsContainer.appendChild(projectContainer);
-        }
-    }
-}
+// Variables for jumping to different sections
+const allNavLinks = document.querySelectorAll(".navbar-link");
+const allSections = document.querySelectorAll(".main-section");
 
-function createFooter() {
-    var date = new Date;
-    var footer = document.createElement("footer");
-    footer.innerHTML = `
-    <div id="footer-connect">
-        <div id="connect-platforms">
-            <a alt="Email icon" aria-label="Link to email" style="background-image: url('image/footer/email.png');" href="mailto:ansonchew.study@gmail.com" target="_blank"></a>
-            <a alt="GitHub icon" aria-label="Link to GitHub" style="background-image: url('image/footer/github.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
-            <a alt="Linkedin icon" aria-label="Link to Linkedin" style="background-image: url('image/footer/linkedin.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
-        </div>
-        <p style="font-size: 12px;">© ${date.getFullYear()}, Anson Chew</p>
-    </div>
-    `
-    contactSection.querySelector(".content-container").appendChild(footer);
-}
+const homeSection = document.getElementById("home-section");
+const articleSection = document.querySelector("article");
+const contactSection = document.getElementById("contact-section");
+const allSectionGroup = [homeSection, articleSection, contactSection];
+let currentSectionGroup = 0;
+let changable = false;
 
 
 
@@ -135,6 +87,56 @@ function animateFadeIn(section) {
             element.classList.add("fade-in");
         });
     }, 300);
+}
+
+function scrollEaseEffect(sectionGroup) {
+    // Easing scrolle effect inspired by https://stackoverflow.com/questions/60526256/easing-effect-on-scroll
+    const content = sectionGroup.firstElementChild;
+    const easeSpeed = 0.1;
+    let moveDistance = 0, curScroll = 0;
+    let restart = false, animate = false;
+
+    sectionGroup.addEventListener("scroll", (e) => {
+        moveDistance = Math.round(sectionGroup.scrollTop);
+        // console.log("Move distance: " + moveDistance);
+    })
+
+    function easeAnimation() {
+        requestAnimationFrame(easeAnimation);
+        
+        if (restart) {
+            curScroll = moveDistance;
+            restart = false;
+        } 
+
+        if (animate) {
+            if (moveDistance >= sectionGroup.scrollHeight - window.innerHeight) curScroll = moveDistance;
+            else curScroll += easeSpeed * (moveDistance - curScroll);    
+
+            // Reducing the translateY to 0 to create easing effect (as the scroll effect is applied to the element already)
+            // It will now go further than the actual distance, but slowly reducing to get back to the proper position
+            var yPos = moveDistance - curScroll;
+            if (Math.abs(yPos) < 0.1) yPos = 0;
+    
+            content.style.transform = `translateY(${yPos}px)`
+            // console.log("yPos: " + yPos);
+        }
+    }
+
+    function startAnimation() {
+        restart = true;
+        animate = true;
+    }
+
+    function stopAnimation() {
+        animate = false;
+    }
+
+    return {
+        easeAnimation: easeAnimation,
+        startAnimation: startAnimation,
+        stopAnimation: stopAnimation
+    };
 }
 
 let sectionOffset;
@@ -266,54 +268,41 @@ function generateNewQuote() {
     favQuote.classList.add("animation");
 }
 
-function scrollEaseEffect(sectionGroup) {
-    // Easing scrolle effect inspired by https://stackoverflow.com/questions/60526256/easing-effect-on-scroll
-    const content = sectionGroup.firstElementChild;
-    const easeSpeed = 0.1;
-    let moveDistance = 0, curScroll = 0;
-    let restart = false, animate = false;
+let pageNum = 1;
+const showcasetNum = 2;
+const projectsContainer = document.getElementById("projects-showcase");
+function displayProject() {    
+    // How many projects to show in each page
+    projectsContainer.innerHTML = "";
+    for (var i = 0; i < showcasetNum; i++) {
+        var index = (pageNum - 1) * showcasetNum + i;
+        if (index < allProjects.length) {
+            let projectContainer = document.createElement("div");
+            projectContainer.setAttribute("class", "project");
+            projectContainer.innerHTML = `
+            <div class="project-thumbnail-container"><div class="project-thumbnail" style="background-image: url('${allProjects[index].thumbnail}')"></div></div>
+            <div class="project-details">
+                <div>
+                    <h3 class="project-title">${allProjects[index].title}</h3>
+                    <p class="project-intro">${allProjects[index].intro}</p>
+                    <div class="project-btns">
+                    </div>
+                </div>
+            </div>
+            `
+            var projectBtns = projectContainer.querySelector(".project-btns");
+            var research = allProjects[index].research;
+            var product = allProjects[index].product;
 
-    sectionGroup.addEventListener("scroll", () => {
-        moveDistance = Math.round(sectionGroup.scrollTop);
-        // console.log("Move distance: " + moveDistance);
-    })
-
-    function easeAnimation() {
-        requestAnimationFrame(easeAnimation);
-        
-        if (restart) {
-            curScroll = moveDistance;
-            restart = false;
-        } 
-
-        if (animate) {
-            if (moveDistance >= sectionGroup.scrollHeight - window.innerHeight) curScroll = moveDistance;
-            else curScroll += easeSpeed * (moveDistance - curScroll);    
-
-            // Reducing the translateY to 0 to create easing effect (as the scroll effect is applied to the element already)
-            // It will now go further than the actual distance, but slowly reducing to get back to the proper position
-            var yPos = moveDistance - curScroll;
-            if (Math.abs(yPos) < 0.1) yPos = 0;
-    
-            content.style.transform = `translateY(${yPos}px)`
-            // console.log("yPos: " + yPos);
+            if (research != "") {
+                projectBtns.innerHTML += `<a class="uppercase view-research-btn" href="${research}" target="_blank">View Research</a>`
+            }
+            if (product != "") {
+                projectBtns.innerHTML += `<a class="uppercase view-product-btn" href="${product}" target="_blank">View Product</a>`
+            }
+            projectsContainer.appendChild(projectContainer);
         }
     }
-
-    function startAnimation() {
-        restart = true;
-        animate = true;
-    }
-
-    function stopAnimation() {
-        animate = false;
-    }
-
-    return {
-        easeAnimation: easeAnimation,
-        startAnimation: startAnimation,
-        stopAnimation: stopAnimation
-    };
 }
 
 function setPageNum() {
@@ -321,6 +310,22 @@ function setPageNum() {
         page.removeAttribute("id");
         if (page.innerHTML == pageNum) page.setAttribute("id", "current-page");
     });
+}
+
+function createFooter() {
+    var date = new Date;
+    var footer = document.createElement("footer");
+    footer.innerHTML = `
+    <div id="footer-connect">
+        <div id="connect-platforms">
+            <a alt="Email icon" aria-label="Link to email" style="background-image: url('image/footer/email.png');" href="mailto:ansonchew.study@gmail.com" target="_blank"></a>
+            <a alt="GitHub icon" aria-label="Link to GitHub" style="background-image: url('image/footer/github.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
+            <a alt="Linkedin icon" aria-label="Link to Linkedin" style="background-image: url('image/footer/linkedin.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
+        </div>
+        <p style="font-size: 12px;">© ${date.getFullYear()}, Anson Chew</p>
+    </div>
+    `
+    contactSection.querySelector(".content-container").appendChild(footer);
 }
 
 
@@ -371,6 +376,19 @@ function createScrollEffect() {
                 displaySectionGroup(index, index + 1);
             }
         }, {passive: true});
+
+        element.addEventListener("touchmove", event => {
+            // At the top of the section group
+            if (index - 1 >= 0 && currentSectionGroup == index && checkReachPosition(element, true) && event.deltaY < 0 && changable) {
+                // console.log("Scroll back to previous section");
+                displaySectionGroup(index, index - 1);
+            }
+
+            if (index + 1 < allSectionGroup.length && currentSectionGroup == index && checkReachPosition(element, false) && event.deltaY > 0 && changable) {
+                // console.log("Scroll to next section");
+                displaySectionGroup(index, index + 1);
+            }
+        })
 
         element.addEventListener("scroll", event => {
             highlightCurrentSection(element);
@@ -441,7 +459,7 @@ contactForm.addEventListener("submit", async (event) => {
     contactForm.appendChild(message);
 
     await new Promise((resolve) => setTimeout(()=> {message.style.opacity = "1"; resolve();}, 500));
-    await new Promise((resolve) => setTimeout(()=> {message.style.opacity = "0"; resolve();}, 2000));
+    await new Promise((resolve) => setTimeout(()=> {message.style.opacity = "0"; resolve();}, 3000));
     setTimeout(()=>{
         contactForm.firstElementChild.style.opacity = "1";
         contactForm.removeChild(message);
