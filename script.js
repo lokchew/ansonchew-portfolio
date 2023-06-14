@@ -378,23 +378,35 @@ function createScrollEffect() {
             }
         }, {passive: true});
 
-        element.addEventListener("touchmove", event => {
-            // At the top of the section group
-            if (index - 1 >= 0 && currentSectionGroup == index && checkReachPosition(element, true) && event.deltaY < 0 && changable) {
-                // console.log("Scroll back to previous section");
-                displaySectionGroup(index, index - 1);
-            }
-
-            if (index + 1 < allSectionGroup.length && currentSectionGroup == index && checkReachPosition(element, false) && event.deltaY > 0 && changable) {
-                // console.log("Scroll to next section");
-                displaySectionGroup(index, index + 1);
-            }
-        })
-
         element.addEventListener("scroll", event => {
             highlightCurrentSection(element);
-        })
+        }, {passive: true})
+
+        handleMobileScroll(element, index);
     });
+}
+
+function handleMobileScroll(element, index) {
+    let startY;
+    element.addEventListener('touchstart', event => {
+        startY = event.touches[0].clientY;
+    });
+
+    element.addEventListener("touchmove", event => {
+        var deltaY = event.touches[0].clientY - startY;
+        // console.log("Touch scroll: " + deltaY);
+
+        // At the top of the section group
+        if (index - 1 >= 0 && currentSectionGroup == index && checkReachPosition(element, true) && deltaY > 0 && changable) {
+            // console.log("Scroll back to previous section");
+            displaySectionGroup(index, index - 1);
+        }
+
+        if (index + 1 < allSectionGroup.length && currentSectionGroup == index && checkReachPosition(element, false) && deltaY < 0 && changable) {
+            // console.log("Scroll to next section");
+            displaySectionGroup(index, index + 1);
+        }
+    })
 }
 
 function sectionJump(section) {
