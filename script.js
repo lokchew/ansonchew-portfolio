@@ -12,11 +12,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     await createScrollEffect();
     await createFooter();
 
-    // Add scroll ease effect if the users are using a desktop browser
-    if ((window.innerWidth > 800 ) && (window.innerHeight > 600)) {
-        scrollEaseFunc = scrollEaseEffect(allSectionGroup[1]);
-        scrollEaseFunc.easeAnimation();
-    }
+    scrollEaseFunc = scrollEaseEffect(allSectionGroup[1]);
+    scrollEaseFunc.easeAnimation();
 });
 
 window.addEventListener('resize', ()=> {contentUpdate()}, true);
@@ -102,24 +99,28 @@ function scrollEaseEffect(sectionGroup) {
     })
 
     function easeAnimation() {
+        // Add scroll ease effect if the users are using a desktop browser
         requestAnimationFrame(easeAnimation);
-        
-        if (restart) {
-            curScroll = moveDistance;
-            restart = false;
-        } 
-
-        if (animate) {
-            if (moveDistance >= sectionGroup.scrollHeight - window.innerHeight) curScroll = moveDistance;
-            else curScroll += easeSpeed * (moveDistance - curScroll);    
-
-            // Reducing the translateY to 0 to create easing effect (as the scroll effect is applied to the element already)
-            // It will now go further than the actual distance, but slowly reducing to get back to the proper position
-            var yPos = moveDistance - curScroll;
-            if (Math.abs(yPos) < 0.1) yPos = 0;
+        if ((window.innerWidth > 800 ) && (window.innerHeight > 600)) {
+            if (restart) {
+                curScroll = moveDistance;
+                restart = false;
+            } 
     
-            content.style.transform = `translateY(${yPos}px)`
-            // console.log("yPos: " + yPos);
+            if (animate) {
+                if (moveDistance >= sectionGroup.scrollHeight - window.innerHeight) curScroll = moveDistance;
+                else curScroll += easeSpeed * (moveDistance - curScroll);    
+    
+                // Reducing the translateY to 0 to create easing effect (as the scroll effect is applied to the element already)
+                // It will now go further than the actual distance, but slowly reducing to get back to the proper position
+                var yPos = moveDistance - curScroll;
+                if (Math.abs(yPos) < 0.1) yPos = 0;
+        
+                content.style.transform = `translateY(${yPos}px)`
+                // console.log("yPos: " + yPos);
+            }
+        } else {
+            content.style.transform = `translateY(0px)`
         }
     }
 
