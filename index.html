@@ -5,14 +5,13 @@
 	<title>Anson Chew</title>
 
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width">
+	<meta name="viewport" content="width=device-width, height=device-height">
 	<meta name="description" content="Anson Chew's portfolio that showcases his previous projects">
 	<meta name="keywords" content="Anson Chew, Web developer, Interaction designer, Front-end designer, UIX">
 	<meta name="theme-color" content="#252525">
 
 	<link rel="icon" href="image/logo/logo16x16.png" type="image/x-icon"/>
 	<link rel="stylesheet" href="style.css" type="text/css">
-
 	<style>
 		/* To avoid the font not showing in some browsers https://stackoverflow.com/questions/36660893/css-open-sans-font */
 		/* With the proper font weight https://stackoverflow.com/questions/45114158/googles-open-sans-font-weight */
@@ -179,18 +178,18 @@
 							<div id="contact-details">
 								<div class="contact-detail-contaienr">
 									<label for="contact-name">Name</label><br>
-									<input type="text" id="contact-name" name="contact-name" required="">
+									<input type="text" id="contact-name" name="contact-name" placeholder="First name" required="">
 								</div>
 								
 								<div class="contact-detail-contaienr">
 									<label for="contact-email">Email</label><br>
-									<input type="email" id="contact-email" name="contact-email" required="">
+									<input type="email" id="contact-email" name="contact-email" pattern="^[A-Za-z]{1,}[A-Za-z.0-9]{1,}[@][A-Za-z0-9]{2,}[A-Za-z.0-9]{0,}[.][A-Za-z]{2,}$" placeholder="example@domain.com" required>
 								</div>
 							</div>
 		
 							<div class="contact-detail-contaienr">
 								<label for="contact-message">Message</label><br>
-								<textarea id="contact-message" name="contact-message" placeholder="Type your message here..."></textarea>
+								<textarea id="contact-message" name="contact-message" placeholder="Type your message here..." required></textarea>
 							</div>
 							
 							<input type="submit" name="submit_btn" value="Say Hello"/>
@@ -202,6 +201,7 @@
 		</section>
 	</main>
 	<script src="script.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </body>
 
 </html>

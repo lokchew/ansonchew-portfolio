@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     scrollEaseFunc = scrollEaseEffect(allSectionGroup[1]);
     scrollEaseFunc.easeAnimation();
+
+    emailjs.init("EndoO0zDFcq_gTgeh");
 });
 
 window.addEventListener('resize', ()=> {contentUpdate()}, true);
@@ -318,7 +320,7 @@ function createFooter() {
     footer.innerHTML = `
     <div id="footer-connect">
         <div id="connect-platforms">
-            <a alt="Email icon" aria-label="Link to email" style="background-image: url('image/footer/email.png');" href="mailto:ansonchew.study@gmail.com" target="_blank"></a>
+            <a alt="Email icon" aria-label="Link to email" style="background-image: url('image/footer/email.png');" href="mailto:ansonchew.work@gmail.com" target="_blank"></a>
             <a alt="GitHub icon" aria-label="Link to GitHub" style="background-image: url('image/footer/github.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
             <a alt="Linkedin icon" aria-label="Link to Linkedin" style="background-image: url('image/footer/linkedin.png');" href="https://www.linkedin.com/in/anson-chew-6b5a08240" target="_blank"></a>
         </div>
@@ -393,7 +395,6 @@ function handleMobileScroll(element, index) {
     }, {passive: false});
 
     document.body.addEventListener("touchmove", event => {
-        var checkPos = false;
         var deltaY = event.touches[0].clientY - startY;
         // console.log("Touch scroll: " + deltaY);
 
@@ -401,13 +402,11 @@ function handleMobileScroll(element, index) {
         if (index - 1 >= 0 && currentSectionGroup == index && checkReachPosition(element, true) && deltaY > 0 && changable) {
             // console.log("Scroll back to previous section");
             displaySectionGroup(index, index - 1);
-            checkPos = true;
         }
 
         if (index + 1 < allSectionGroup.length && currentSectionGroup == index && checkReachPosition(element, false) && deltaY < 0 && changable) {
             // console.log("Scroll to next section");
             displaySectionGroup(index, index + 1);
-            checkPos = true;
         }
     })
 }
@@ -462,22 +461,36 @@ function changePageNum(direction) {
 const contactForm = document.getElementById("input-form-container")
 contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    contactForm.reset();
 
-    contactForm.firstElementChild.style.opacity = "0";
-    var message = document.createElement("div");
-    message.setAttribute("id", "message");
-    message.style.opacity = "0";
-    message.innerHTML = `
-        <h3>Message Sent</h3>
-        <p>Thank you for reaching out, I will be in touch soon</p>
-    `
-    contactForm.appendChild(message);
+    try {
+        var params = {
+            contact_name: document.getElementById("contact-name").value,
+            contact_email: document.getElementById("contact-email").value,
+            contact_message: document.getElementById("contact-message").value
+        }
 
-    await new Promise((resolve) => setTimeout(()=> {message.style.opacity = "1"; resolve();}, 500));
-    await new Promise((resolve) => setTimeout(()=> {message.style.opacity = "0"; resolve();}, 3000));
-    setTimeout(()=>{
-        contactForm.firstElementChild.style.opacity = "1";
-        contactForm.removeChild(message);
-    }, 500)
+        const res = await emailjs.send("service_gwbbiz7", "template_9id7mrg", params);
+        console.log("Email was sent successfully: " + res.status);
+
+        contactForm.firstElementChild.style.opacity = "0";
+        var message = document.createElement("div");
+        message.setAttribute("id", "message");
+        message.style.opacity = "0";
+        message.innerHTML = `
+            <h3>Message Sent</h3>
+            <p>Thank you for reaching out, I will be in touch soon</p>
+        `
+        contactForm.appendChild(message);
+    
+        await new Promise((resolve) => setTimeout(()=> {message.style.opacity = "1"; resolve();}, 500));
+        await new Promise((resolve) => setTimeout(()=> {message.style.opacity = "0"; resolve();}, 3000));
+        setTimeout(()=>{
+            contactForm.reset();
+            contactForm.firstElementChild.style.opacity = "1";
+            contactForm.removeChild(message);
+        }, 500)
+    } catch (e) {
+        alert("There is an error when submitting the form, please email your message to ansonchew.work@gmail.com. I will get back to you shortly.");
+        console.log("Failed to submit form", e);
+    }
 })
