@@ -461,11 +461,18 @@ function changePageNum(direction) {
 const contactForm = document.getElementById("input-form-container")
 contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+    console.log("Form submitting...");
 
     try {
+        var email = document.getElementById("contact-email").value;
+        var regex = /^[A-Za-z]{1,}[A-Za-z.0-9]{1,}[@][A-Za-z0-9]{2,}[A-Za-z.0-9]{0,}[.][A-Za-z]{2,}$/;
+        if (!regex.test(email)) throw new Error("Wrong email format");
+
+        document.querySelector(`input[name="submit_btn"]`).disabled = true;
+
         var params = {
             contact_name: document.getElementById("contact-name").value,
-            contact_email: document.getElementById("contact-email").value,
+            contact_email: email,
             contact_message: document.getElementById("contact-message").value
         }
 
@@ -487,10 +494,11 @@ contactForm.addEventListener("submit", async (event) => {
         setTimeout(()=>{
             contactForm.reset();
             contactForm.firstElementChild.style.opacity = "1";
+            document.querySelector(`input[name="submit_btn"]`).disabled = false;
             contactForm.removeChild(message);
         }, 500)
     } catch (e) {
         alert("There is an error when submitting the form, please email your message to ansonchew.work@gmail.com. I will get back to you shortly.");
-        console.log("Failed to submit form", e);
+        console.log("Failed to submit form: ", e);
     }
 })
